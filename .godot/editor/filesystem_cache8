@@ -1,0 +1,13 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1702535606
+default_env.tres::::-1::1700783572::0::1::::<><>::
+enemy.gd::GDScript::-1::1700783572::0::1::::<>CharacterBody2D<>::
+fang.gd::GDScript::-1::1700783572::0::1::::<>CharacterBody2D<>::
+icon.png::CompressedTexture2D::8476436155360801421::1680580368::1700783579::1::::<><>::
+level.gd::GDScript::-1::1700783572::0::1::::<>Node2D<>::
+level.tscn::PackedScene::1179030521943275904::1700783604::0::1::::<><>::res://characters/fang.tscn<>uid://bh6qwxiosmauj::::res://art/DesertSands.png<>res://characters/enemy.tscn<>res://level.gd
+::res://art/::1700783579
+DesertSands.png::CompressedTexture2D::2942750279941462897::1680582808::1700783579::1::::<><>::
+::res://characters/::1700783604
+enemy.tscn::PackedScene::-1::1700783572::0::1::::<><>::res://enemy.gd
+fang.tscn::PackedScene::7476722625592882417::1700783604::0::1::::<><>::uid://ds1bwu2mibiqf::::res://icon.png<>res://fang.gd
