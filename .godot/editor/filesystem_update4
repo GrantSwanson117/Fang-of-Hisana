@@ -1,1 +1,3 @@
-res://characters/fang.tscn
+res://level.tscn
+res://actors/fang.tscn
+res://fang.gd
