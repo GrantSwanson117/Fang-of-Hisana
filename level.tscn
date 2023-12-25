@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://q2epwjby124k"]
 
 [ext_resource type="PackedScene" uid="uid://der1r8332tu38" path="res://actors/fang.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_wy8s1"]
 [ext_resource type="Texture2D" uid="uid://bh6qwxiosmauj" path="res://art/DesertSands.png" id="2"]
-[ext_resource type="Script" path="res://level.gd" id="5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2eb4b"]
 texture = ExtResource("2")
@@ -656,7 +656,7 @@ terrain_set_1/terrain_0/color = Color(0.337255, 0.27451, 0.811765, 1)
 sources/0 = SubResource("TileSetAtlasSource_2eb4b")
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("5")
+script = ExtResource("1_wy8s1")
 metadata/_edit_horizontal_guides_ = []
 
 [node name="TileMap" type="TileMap" parent="."]

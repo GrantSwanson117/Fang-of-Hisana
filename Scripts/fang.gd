@@ -26,7 +26,7 @@ func _physics_process(delta):
 		if motion == Vector2(0,0): dodge(Vector2(transform.x.x, 0))
 		else: dodge(input_vector)
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack"):# && tree["parameters/conditions/attackA"] == tree["parameters/conditions/attackB"] == false:
 		attackSwitch = !attackSwitch
 		if attackSwitch == false: tree["parameters/conditions/attackA"] = true 
 		elif attackSwitch == true: tree["parameters/conditions/attackB"] = true 
