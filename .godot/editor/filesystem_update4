@@ -1,3 +1,4 @@
 res://level.tscn
-res://fang.gd
+res://Scripts/fang.gd
 res://actors/fang.tscn
+res://actors/ibex_boss.tscn
