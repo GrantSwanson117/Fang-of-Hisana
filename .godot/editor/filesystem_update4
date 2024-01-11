@@ -1,4 +1,7 @@
-res://level.tscn
-res://Scripts/fang.gd
-res://actors/fang.tscn
-res://actors/ibex_boss.tscn
+res://scenes/trigger.tscn
+res://scripts/fang.gd
+res://trigger.gd
+res://scenes/level.tscn
+res://scenes/ibex_boss.tscn
+res://scenes/fang.tscn
+res://scenes/dialogue.tscn

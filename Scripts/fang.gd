@@ -1,7 +1,6 @@
-extends CharacterBody2D
+extends Entity
 
 @export var speed: int
-@export var baseSpeed: int = 150
 var motion = Vector2.ZERO
 @onready var animator = $AnimationPlayer
 @onready var tree = $AnimationTree
@@ -12,11 +11,12 @@ var input_vector = Vector2.ZERO
 var attackSwitch = false
 
 func _ready():
+	$Hurtbox/CollisionShape2D.disabled = false
 	busy = false
 	canDodge = true
 	tree.active = true
 	speed = 150
-	
+
 func _physics_process(delta):
 	if !busy: move(delta)
 	updateAnimParameters()
@@ -31,7 +31,6 @@ func _physics_process(delta):
 		if attackSwitch == false: tree["parameters/conditions/attackA"] = true 
 		elif attackSwitch == true: tree["parameters/conditions/attackB"] = true 
 		tree["parameters/conditions/idle"] = false
-
 
 func dodge(direction):
 	speed = 300
@@ -49,7 +48,6 @@ func move(_delta):
 	input_vector.y = Input.get_action_strength("down") - Input.get_action_strength("up")
 	input_vector = input_vector.normalized()
 	
-	motion = velocity
 	motion = input_vector * speed
 
 func updateAnimParameters():
@@ -65,4 +63,13 @@ func updateAnimParameters():
 		tree["parameters/conditions/idle"] = false
 		tree["parameters/conditions/isMoving"] = true
 
+func die():
+	tree.active = false
+	busy = true
+	animator.play("Die")
+	motion = Vector2.ZERO
 
+func _on_hitbox_area_entered(area):
+	if $Collider.owner != area.owner:
+		damage = randi_range(minDamage, maxDamage)
+		dealDamage(damage, area.get_parent())

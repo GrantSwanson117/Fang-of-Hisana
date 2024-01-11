@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Fang of Hisana"
-run/main_scene="res://level.tscn"
+run/main_scene="res://scenes/level.tscn"
 config/features=PackedStringArray("4.1")
 config/icon="res://art/warrior.png"
 
 [autoload]
 
-Level="*res://Scripts/level.gd"
+Level="*res://scripts/level.gd"
 
 [display]
 
@@ -74,6 +74,12 @@ dodge={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":1,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="Hitboxes"
+2d_physics/layer_3="Hurtboxes"
 
 [physics]
 

@@ -1,16 +1,8 @@
-[gd_scene load_steps=42 format=3 uid="uid://der1r8332tu38"]
+[gd_scene load_steps=43 format=3 uid="uid://der1r8332tu38"]
 
-[ext_resource type="Script" path="res://Scripts/fang.gd" id="1_ukpw8"]
+[ext_resource type="Script" path="res://scripts/fang.gd" id="1_ukpw8"]
 [ext_resource type="Texture2D" uid="uid://c50uuxgh22pnb" path="res://art/fang.png" id="2_feavh"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="2_k7utr"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ip50g"]
-radius = 8.0
-height = 44.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qtrsb"]
-radius = 16.0
-height = 36.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kxv0q"]
 animation = &"Attack 1"
@@ -129,7 +121,7 @@ states/Start/position = Vector2(179, 89)
 states/Transition/node = SubResource("AnimationNodeAnimation_siqnc")
 states/Transition/position = Vector2(683.803, -71.2482)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1qu23"), "Run", "Transition", SubResource("AnimationNodeStateMachineTransition_lgfjl"), "Transition", "Idle", SubResource("AnimationNodeStateMachineTransition_e67vk"), "Dodge", "Idle", SubResource("AnimationNodeStateMachineTransition_tva6x"), "Idle", "Dodge", SubResource("AnimationNodeStateMachineTransition_3xnsc"), "Dodge", "Run", SubResource("AnimationNodeStateMachineTransition_s213k"), "Run", "Dodge", SubResource("AnimationNodeStateMachineTransition_5ykr8"), "Idle", "Transition", SubResource("AnimationNodeStateMachineTransition_x440n"), "Transition", "Run", SubResource("AnimationNodeStateMachineTransition_04kr3"), "Attack 1", "Attack 2", SubResource("AnimationNodeStateMachineTransition_838e2"), "Attack 2", "Attack 1", SubResource("AnimationNodeStateMachineTransition_odhe5"), "Idle", "Attack 1", SubResource("AnimationNodeStateMachineTransition_ap7nq"), "Run", "Attack 2", SubResource("AnimationNodeStateMachineTransition_a85f3"), "Idle", "Attack 2", SubResource("AnimationNodeStateMachineTransition_fys2x"), "Run", "Attack 1", SubResource("AnimationNodeStateMachineTransition_lm1h8"), "Attack 1", "Idle", SubResource("AnimationNodeStateMachineTransition_3h6pr"), "Attack 2", "Run", SubResource("AnimationNodeStateMachineTransition_8a11x"), "Attack 2", "Idle", SubResource("AnimationNodeStateMachineTransition_8pw71"), "Attack 1", "Run", SubResource("AnimationNodeStateMachineTransition_rg1yn")]
-graph_offset = Vector2(-131.197, -104.248)
+graph_offset = Vector2(20.803, 41.752)
 
 [sub_resource type="Animation" id="Animation_6r4bq"]
 resource_name = "Attack 1"
@@ -144,7 +136,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.152532, 0.32),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [true, false, true]
 }
 tracks/1/type = "value"
@@ -209,7 +201,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.16, 0.31),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [true, false, true]
 }
 tracks/2/type = "value"
@@ -235,6 +227,34 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_5d0qa"]
+resource_name = "Die"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_uw143"]
@@ -318,7 +338,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [true]
 }
 tracks/1/type = "value"
@@ -330,7 +350,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
+"update": 1,
 "values": [3]
 }
 
@@ -388,6 +408,7 @@ tracks/0/keys = {
 _data = {
 "Attack 1": SubResource("Animation_6r4bq"),
 "Attack 2": SubResource("Animation_vyw7i"),
+"Die": SubResource("Animation_5d0qa"),
 "Dodge": SubResource("Animation_uw143"),
 "Idle": SubResource("Animation_su2ve"),
 "RESET": SubResource("Animation_5j6q2"),
@@ -396,16 +417,30 @@ _data = {
 "Transition": SubResource("Animation_i5x7w")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qtrsb"]
+radius = 16.0
+height = 36.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ip50g"]
+radius = 8.0
+height = 44.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lois5"]
 radius = 8.0
 height = 22.0
 
 [node name="Fang" type="CharacterBody2D"]
-collision_layer = 3
-collision_mask = 5
+self_modulate = Color(0, 0, 0, 1)
 script = ExtResource("1_ukpw8")
-speed = 300
-busy = true
+health = 20
+minDamage = 10
+maxDamage = 30
+baseSpeed = 150
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.313726)
+position = Vector2(0, 28)
+texture = ExtResource("2_k7utr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -415,33 +450,11 @@ hframes = 5
 vframes = 5
 frame = 3
 
-[node name="Hurtbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, 6)
-shape = SubResource("CapsuleShape2D_ip50g")
-disabled = true
-debug_color = Color(0, 0.643137, 0.270588, 0.419608)
-
-[node name="Shadow" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.313726)
-position = Vector2(0, 28)
-texture = ExtResource("2_k7utr")
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(3, 0)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
-
-[node name="Hitbox" type="Area2D" parent="."]
-position = Vector2(2, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(22, 6)
-shape = SubResource("CapsuleShape2D_qtrsb")
-disabled = true
-debug_color = Color(0.996078, 0, 0.180392, 0.211765)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_0x2qi")
@@ -460,9 +473,31 @@ libraries = {
 [node name="DodgeTimer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(2, 0)
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(19, 6)
+shape = SubResource("CapsuleShape2D_qtrsb")
+disabled = true
+debug_color = Color(0.996078, 0, 0.180392, 0.211765)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_ip50g")
+disabled = true
+debug_color = Color(0, 0.643137, 0.270588, 0.419608)
+
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 21)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lois5")
 
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
