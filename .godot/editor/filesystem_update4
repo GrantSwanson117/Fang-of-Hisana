@@ -1,7 +1,14 @@
-res://scenes/trigger.tscn
-res://scripts/fang.gd
-res://trigger.gd
 res://scenes/level.tscn
+res://scripts/fang.gd
 res://scenes/ibex_boss.tscn
 res://scenes/fang.tscn
+res://scenes/triggerGate.tscn
 res://scenes/dialogue.tscn
+res://scripts/ibex_boss.gd
+res://scripts/entity.gd
+res://scripts/Follow.gd
+res://scenes/fogGate.tscn
+res://scripts/FiniteStateMachine.gd
+res://scripts/Idle.gd
+res://scripts/state.gd
+res://trigger.gd

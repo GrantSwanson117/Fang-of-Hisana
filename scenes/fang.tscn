@@ -121,7 +121,7 @@ states/Start/position = Vector2(179, 89)
 states/Transition/node = SubResource("AnimationNodeAnimation_siqnc")
 states/Transition/position = Vector2(683.803, -71.2482)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1qu23"), "Run", "Transition", SubResource("AnimationNodeStateMachineTransition_lgfjl"), "Transition", "Idle", SubResource("AnimationNodeStateMachineTransition_e67vk"), "Dodge", "Idle", SubResource("AnimationNodeStateMachineTransition_tva6x"), "Idle", "Dodge", SubResource("AnimationNodeStateMachineTransition_3xnsc"), "Dodge", "Run", SubResource("AnimationNodeStateMachineTransition_s213k"), "Run", "Dodge", SubResource("AnimationNodeStateMachineTransition_5ykr8"), "Idle", "Transition", SubResource("AnimationNodeStateMachineTransition_x440n"), "Transition", "Run", SubResource("AnimationNodeStateMachineTransition_04kr3"), "Attack 1", "Attack 2", SubResource("AnimationNodeStateMachineTransition_838e2"), "Attack 2", "Attack 1", SubResource("AnimationNodeStateMachineTransition_odhe5"), "Idle", "Attack 1", SubResource("AnimationNodeStateMachineTransition_ap7nq"), "Run", "Attack 2", SubResource("AnimationNodeStateMachineTransition_a85f3"), "Idle", "Attack 2", SubResource("AnimationNodeStateMachineTransition_fys2x"), "Run", "Attack 1", SubResource("AnimationNodeStateMachineTransition_lm1h8"), "Attack 1", "Idle", SubResource("AnimationNodeStateMachineTransition_3h6pr"), "Attack 2", "Run", SubResource("AnimationNodeStateMachineTransition_8a11x"), "Attack 2", "Idle", SubResource("AnimationNodeStateMachineTransition_8pw71"), "Attack 1", "Run", SubResource("AnimationNodeStateMachineTransition_rg1yn")]
-graph_offset = Vector2(20.803, 41.752)
+graph_offset = Vector2(-59.197, -110.248)
 
 [sub_resource type="Animation" id="Animation_6r4bq"]
 resource_name = "Attack 1"
@@ -432,9 +432,9 @@ height = 22.0
 [node name="Fang" type="CharacterBody2D"]
 self_modulate = Color(0, 0, 0, 1)
 script = ExtResource("1_ukpw8")
-health = 20
 minDamage = 10
 maxDamage = 30
+health = 20
 baseSpeed = 150
 
 [node name="Shadow" type="Sprite2D" parent="."]
@@ -479,7 +479,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(19, 6)
+position = Vector2(19, 5)
 shape = SubResource("CapsuleShape2D_qtrsb")
 disabled = true
 debug_color = Color(0.996078, 0, 0.180392, 0.211765)

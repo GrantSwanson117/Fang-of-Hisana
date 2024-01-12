@@ -2,9 +2,10 @@ extends CharacterBody2D
 class_name Entity
 
 var damage: int
-@export var health: int
 @export var minDamage: int
 @export var maxDamage: int
+
+@export var health: int
 @export var baseSpeed: int
 
 

@@ -1,10 +1,42 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4lilitkgsutx"]
+[gd_scene load_steps=9 format=3 uid="uid://d4lilitkgsutx"]
 
 [ext_resource type="Script" path="res://trigger.gd" id="1_ufuqn"]
-[ext_resource type="Texture2D" uid="uid://bfp83raor7bwb" path="res://scenes/fogwall.png" id="2_0jdw1"]
+[ext_resource type="Texture2D" uid="uid://bfp83raor7bwb" path="res://art/fogwall.png" id="2_x83w7"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_4gtbd"]
 b = Vector2(200, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_u5h5j"]
+b = Vector2(200, 0)
+
+[sub_resource type="Animation" id="Animation_6ljnr"]
+resource_name = "Fade Out"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_5eqr1"]
 resource_name = "Fade in"
@@ -50,35 +82,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.529412), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_6ljnr"]
-resource_name = "Fade Out"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Barrier:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mjenj"]
 _data = {
 "Fade Out": SubResource("Animation_6ljnr"),
@@ -86,31 +89,28 @@ _data = {
 "Idle": SubResource("Animation_204w3")
 }
 
-[node name="Trigger" type="Area2D"]
+[node name="FogGate" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_ufuqn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 21)
 shape = SubResource("SegmentShape2D_4gtbd")
 
 [node name="Barrier" type="StaticBody2D" parent="."]
 modulate = Color(1, 1, 1, 0)
+position = Vector2(-1, 28)
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier"]
+shape = SubResource("SegmentShape2D_u5h5j")
 
 [node name="AnimatedSprite2D" type="Sprite2D" parent="Barrier/CollisionShape2D"]
-position = Vector2(99, -32)
+position = Vector2(98, -25)
 scale = Vector2(1.53125, 1)
-texture = ExtResource("2_0jdw1")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Barrier"]
-
-[node name="AnimatedSprite2D2" type="Sprite2D" parent="Barrier/CollisionShape2D2"]
-position = Vector2(99, -32)
-scale = Vector2(1.53125, 1)
-texture = ExtResource("2_0jdw1")
+texture = ExtResource("2_x83w7")
+region_rect = Rect2(-0.463287, -0.0189667, 127.653, 63.6146)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
