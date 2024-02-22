@@ -2,6 +2,7 @@ extends Entity
 
 signal bossDeath
 @onready var player = get_parent().find_child("Fang")
+@export var meleeRange : int
 
 var direction: Vector2
 
@@ -11,6 +12,8 @@ func _ready():
 
 func _process(delta):
 	direction = player.position - position
+	
+	$Hitbox.look_at(player.global_position)
 	
 	if direction.x > 0: $Sprite.flip_h = true
 	else: $Sprite.flip_h = false
@@ -24,4 +27,3 @@ func die():
 
 func _on_hitbox_area_entered(area):
 	dealDamage(damage, area.get_parent())
-

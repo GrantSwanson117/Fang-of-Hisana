@@ -22,6 +22,6 @@ func _on_body_exited(body):
 	if target != null and triggerGate:
 		set_deferred("monitoring", false)
 		$AnimationPlayer.play("Fade in")
-		stateMachine.changeState("Follow")
 		$Barrier.collision_mask = 2
 		$Barrier.collision_layer = 1
+		print("exit")
