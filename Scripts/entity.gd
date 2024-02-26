@@ -11,7 +11,7 @@ var damage: int
 
 func takeDamage(amount: int):
 	health -= amount
-	#print(health)
+	print(amount)
 
 func dealDamage(amount: int, target: CharacterBody2D):
 	if target == null:
@@ -22,3 +22,4 @@ func dealDamage(amount: int, target: CharacterBody2D):
 			if target.health <= 0:
 				target.health = 0
 				if target.has_method("die"): target.die()
+

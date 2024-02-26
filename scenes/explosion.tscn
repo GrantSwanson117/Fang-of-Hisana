@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://doqpwg2rqv84f"]
+
+[ext_resource type="Texture2D" uid="uid://1pd6ykbwp7en" path="res://art/lightSphere.png" id="1_6tycd"]
+
+[sub_resource type="Gradient" id="Gradient_0hqld"]
+offsets = PackedFloat32Array(0.0157068, 0.277487, 0.853403, 1)
+colors = PackedColorArray(0.6, 0.21, 1.5, 1, 0.67234, 0.352872, 1.40957, 1, 0.981005, 0.962485, 1.02374, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_86ta0"]
+gradient = SubResource("Gradient_0hqld")
+
+[sub_resource type="Curve" id="Curve_46thq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.284211), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qo1d3"]
+curve = SubResource("Curve_46thq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vhtls"]
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 2.0
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 90.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 26.829
+damping_max = 40.65
+angle_max = 120.0
+scale_min = 0.05
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_qo1d3")
+color = Color(1.5, 1.5, 1.5, 1)
+color_ramp = SubResource("GradientTexture1D_86ta0")
+
+[node name="explosion" type="GPUParticles2D"]
+modulate = Color(0.737255, 0.521569, 1, 1)
+self_modulate = Color(2, 2, 2, 1)
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_vhtls")
+texture = ExtResource("1_6tycd")
+one_shot = true
+explosiveness = 1.0

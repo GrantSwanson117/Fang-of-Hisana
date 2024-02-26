@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://7ytnwmxya6fm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vvmkw"]
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+amount = 4200
+process_material = SubResource("ShaderMaterial_vvmkw")

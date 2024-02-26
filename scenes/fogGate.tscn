@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://d4lilitkgsutx"]
 
-[ext_resource type="Script" path="res://trigger.gd" id="1_ufuqn"]
+[ext_resource type="Script" path="res://scripts/trigger.gd" id="1_y4cge"]
 [ext_resource type="Texture2D" uid="uid://bfp83raor7bwb" path="res://art/fogwall.png" id="2_x83w7"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_4gtbd"]
@@ -91,7 +91,7 @@ _data = {
 
 [node name="FogGate" type="Area2D"]
 collision_mask = 2
-script = ExtResource("1_ufuqn")
+script = ExtResource("1_y4cge")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 21)

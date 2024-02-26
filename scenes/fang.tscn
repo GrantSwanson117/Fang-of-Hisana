@@ -429,10 +429,10 @@ height = 44.0
 radius = 8.0
 height = 22.0
 
-[node name="Fang" type="CharacterBody2D"]
+[node name="Fang" type="CharacterBody2D" groups=["player"]]
 self_modulate = Color(0, 0, 0, 1)
 script = ExtResource("1_ukpw8")
-minDamage = 10
+minDamage = 15
 maxDamage = 30
 health = 20
 baseSpeed = 150
@@ -498,6 +498,9 @@ debug_color = Color(0, 0.643137, 0.270588, 0.419608)
 position = Vector2(0, 21)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lois5")
+
+[node name="DustPosition" type="Node2D" parent="."]
+position = Vector2(-12, 27)
 
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

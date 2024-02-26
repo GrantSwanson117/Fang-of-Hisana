@@ -1,12 +1,15 @@
 extends Entity
 
 @export var speed: int
+@export var fireballSpeed: int
 var motion = Vector2.ZERO
 @onready var animator = $AnimationPlayer
 @onready var tree = $AnimationTree
 var input_vector = Vector2.ZERO
 @export var busy: bool
 @export var canDodge: bool
+var Fireball = preload("res://scenes/fireball.tscn")
+var Dust = preload("res://scenes/dust.tscn")
 
 var attackSwitch = false
 
@@ -16,6 +19,7 @@ func _ready():
 	canDodge = true
 	tree.active = true
 	speed = 150
+	fireballSpeed = 1000
 
 func _physics_process(delta):
 	if !busy: move(delta)
@@ -25,6 +29,8 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("dodge") and velocity != Vector2.ZERO and canDodge:
 		dodge(input_vector)
+	if Input.is_action_just_pressed("fireball"):
+		shootFireball()
 	
 	if Input.is_action_just_pressed("attack") and !busy:
 		attackSwitch = !attackSwitch
@@ -40,6 +46,11 @@ func dodge(direction):
 	tween.tween_property(self, "speed", baseSpeed, 0.3)
 	canDodge = false
 	$DodgeTimer.start()
+	var dustInstance = Dust.instantiate()
+	get_tree().current_scene.add_child(dustInstance)
+	dustInstance.global_position = $DustPosition.global_position
+	dustInstance.scale.x = -scale.x
+	dustInstance.rotation = global_rotation
 
 func _on_dodge_timer_timeout(): canDodge = true
 
@@ -50,6 +61,12 @@ func move(_delta):
 	
 	motion = input_vector * speed
 
+func shootFireball():
+	var fireballInstance = Fireball.instantiate()
+	get_tree().current_scene.add_child(fireballInstance)
+	fireballInstance.position = self.global_position
+	fireballInstance.linear_velocity = (get_global_mouse_position() - self.global_position).normalized() * fireballSpeed
+	
 func updateAnimParameters():
 	if !busy:
 		if motion.x > 0: 

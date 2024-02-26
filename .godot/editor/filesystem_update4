@@ -1,9 +1,10 @@
-res://scenes/ibex_boss.tscn
-res://scripts/fang.gd
-res://scenes/attack.gd
 res://scenes/level.tscn
+res://scripts/fang.gd
+res://resources/Noise.tres
+res://resources/dissolve.tres
+res://scenes/ibex_boss.tscn
 res://scenes/fang.tscn
 res://scenes/fogGate.tscn
-res://scenes/dialogue.tscn
-res://scenes/follow.gd
-res://scripts/stateMachine.gd
+res://scenes/fireball.tscn
+res://scenes/explosion.tscn
+res://scenes/dust.tscn
