@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://der1r8332tu38"]
+[gd_scene load_steps=49 format=3 uid="uid://der1r8332tu38"]
 
 [ext_resource type="Script" path="res://scripts/fang.gd" id="1_ukpw8"]
 [ext_resource type="Texture2D" uid="uid://c50uuxgh22pnb" path="res://art/fang.png" id="2_feavh"]
@@ -15,6 +15,9 @@ animation = &"Dodge"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pkyax"]
 animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ujvqd"]
+animation = &"Magic"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tnckg"]
 animation = &"Run"
@@ -104,6 +107,22 @@ switch_mode = 2
 advance_mode = 2
 advance_condition = &"isMoving"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c4q3r"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kwh86"]
+advance_mode = 2
+advance_condition = &"isCasting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hmwb0"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y0okn"]
+advance_mode = 2
+advance_condition = &"isCasting"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0x2qi"]
 allow_transition_to_self = true
 "states/Attack 1/node" = SubResource("AnimationNodeAnimation_kxv0q")
@@ -115,13 +134,15 @@ states/Dodge/position = Vector2(259.803, -71.2482)
 states/End/position = Vector2(921, 89)
 states/Idle/node = SubResource("AnimationNodeAnimation_pkyax")
 states/Idle/position = Vector2(370.803, 89)
+states/Magic/node = SubResource("AnimationNodeAnimation_ujvqd")
+states/Magic/position = Vector2(473.803, -188.248)
 states/Run/node = SubResource("AnimationNodeAnimation_tnckg")
 states/Run/position = Vector2(591.803, 89)
 states/Start/position = Vector2(179, 89)
 states/Transition/node = SubResource("AnimationNodeAnimation_siqnc")
 states/Transition/position = Vector2(683.803, -71.2482)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1qu23"), "Run", "Transition", SubResource("AnimationNodeStateMachineTransition_lgfjl"), "Transition", "Idle", SubResource("AnimationNodeStateMachineTransition_e67vk"), "Dodge", "Idle", SubResource("AnimationNodeStateMachineTransition_tva6x"), "Idle", "Dodge", SubResource("AnimationNodeStateMachineTransition_3xnsc"), "Dodge", "Run", SubResource("AnimationNodeStateMachineTransition_s213k"), "Run", "Dodge", SubResource("AnimationNodeStateMachineTransition_5ykr8"), "Idle", "Transition", SubResource("AnimationNodeStateMachineTransition_x440n"), "Transition", "Run", SubResource("AnimationNodeStateMachineTransition_04kr3"), "Attack 1", "Attack 2", SubResource("AnimationNodeStateMachineTransition_838e2"), "Attack 2", "Attack 1", SubResource("AnimationNodeStateMachineTransition_odhe5"), "Idle", "Attack 1", SubResource("AnimationNodeStateMachineTransition_ap7nq"), "Run", "Attack 2", SubResource("AnimationNodeStateMachineTransition_a85f3"), "Idle", "Attack 2", SubResource("AnimationNodeStateMachineTransition_fys2x"), "Run", "Attack 1", SubResource("AnimationNodeStateMachineTransition_lm1h8"), "Attack 1", "Idle", SubResource("AnimationNodeStateMachineTransition_3h6pr"), "Attack 2", "Run", SubResource("AnimationNodeStateMachineTransition_8a11x"), "Attack 2", "Idle", SubResource("AnimationNodeStateMachineTransition_8pw71"), "Attack 1", "Run", SubResource("AnimationNodeStateMachineTransition_rg1yn")]
-graph_offset = Vector2(-59.197, -110.248)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1qu23"), "Run", "Transition", SubResource("AnimationNodeStateMachineTransition_lgfjl"), "Transition", "Idle", SubResource("AnimationNodeStateMachineTransition_e67vk"), "Dodge", "Idle", SubResource("AnimationNodeStateMachineTransition_tva6x"), "Idle", "Dodge", SubResource("AnimationNodeStateMachineTransition_3xnsc"), "Dodge", "Run", SubResource("AnimationNodeStateMachineTransition_s213k"), "Run", "Dodge", SubResource("AnimationNodeStateMachineTransition_5ykr8"), "Idle", "Transition", SubResource("AnimationNodeStateMachineTransition_x440n"), "Transition", "Run", SubResource("AnimationNodeStateMachineTransition_04kr3"), "Attack 1", "Attack 2", SubResource("AnimationNodeStateMachineTransition_838e2"), "Attack 2", "Attack 1", SubResource("AnimationNodeStateMachineTransition_odhe5"), "Idle", "Attack 1", SubResource("AnimationNodeStateMachineTransition_ap7nq"), "Run", "Attack 2", SubResource("AnimationNodeStateMachineTransition_a85f3"), "Idle", "Attack 2", SubResource("AnimationNodeStateMachineTransition_fys2x"), "Run", "Attack 1", SubResource("AnimationNodeStateMachineTransition_lm1h8"), "Attack 1", "Idle", SubResource("AnimationNodeStateMachineTransition_3h6pr"), "Attack 2", "Run", SubResource("AnimationNodeStateMachineTransition_8a11x"), "Attack 2", "Idle", SubResource("AnimationNodeStateMachineTransition_8pw71"), "Attack 1", "Run", SubResource("AnimationNodeStateMachineTransition_rg1yn"), "Magic", "Idle", SubResource("AnimationNodeStateMachineTransition_c4q3r"), "Idle", "Magic", SubResource("AnimationNodeStateMachineTransition_kwh86"), "Magic", "Run", SubResource("AnimationNodeStateMachineTransition_hmwb0"), "Run", "Magic", SubResource("AnimationNodeStateMachineTransition_y0okn")]
+graph_offset = Vector2(5.80301, -87.248)
 
 [sub_resource type="Animation" id="Animation_6r4bq"]
 resource_name = "Attack 1"
@@ -134,7 +155,7 @@ tracks/0/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.152532, 0.32),
+"times": PackedFloat32Array(0, 0.2, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [true, false, true]
@@ -199,7 +220,7 @@ tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.16, 0.31),
+"times": PackedFloat32Array(0, 0.2, 0.32),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [true, false, true]
@@ -327,6 +348,46 @@ tracks/0/keys = {
 "values": [0, 1, 2, 1]
 }
 
+[sub_resource type="Animation" id="Animation_gulcw"]
+resource_name = "Magic"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:canDodge")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationTree:parameters/conditions/isCasting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
 [sub_resource type="Animation" id="Animation_5j6q2"]
 length = 0.001
 tracks/0/type = "value"
@@ -411,6 +472,7 @@ _data = {
 "Die": SubResource("Animation_5d0qa"),
 "Dodge": SubResource("Animation_uw143"),
 "Idle": SubResource("Animation_su2ve"),
+"Magic": SubResource("Animation_gulcw"),
 "RESET": SubResource("Animation_5j6q2"),
 "Ready": SubResource("Animation_qsmxk"),
 "Run": SubResource("Animation_ftjc3"),
@@ -432,6 +494,7 @@ height = 22.0
 [node name="Fang" type="CharacterBody2D" groups=["player"]]
 self_modulate = Color(0, 0, 0, 1)
 script = ExtResource("1_ukpw8")
+busy = true
 minDamage = 15
 maxDamage = 30
 health = 20
@@ -463,6 +526,7 @@ parameters/conditions/attackA = false
 parameters/conditions/attackB = false
 parameters/conditions/dodge = false
 parameters/conditions/idle = false
+parameters/conditions/isCasting = true
 parameters/conditions/isMoving = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

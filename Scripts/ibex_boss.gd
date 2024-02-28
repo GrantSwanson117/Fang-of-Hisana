@@ -11,16 +11,15 @@ signal moveFalse
 var canMove: bool = true
 var direction: Vector2
 
-func _ready():
-	$UI/ProgressBar.max_value = health
+func ready(): health = 3000
 
 func _physics_process(delta):
 	direction = player.position - global_position
 	
 	$Hitbox.look_at(player.global_position)
 	
-	if direction.x > 0: $Sprite.flip_h = true
-	else: $Sprite.flip_h = false
+	if direction.x > 0: $Sprite2D.flip_h = true
+	else: $Sprite2D.flip_h = false
 	
 	if direction.length() < meleeRange:
 		stateMachine.changeState("Attack")

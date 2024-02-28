@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://vfqtbyv2di3h" path="res://scenes/ibex_boss.tscn" id="3_n2klo"]
 [ext_resource type="PackedScene" uid="uid://der1r8332tu38" path="res://scenes/fang.tscn" id="4_rjsv7"]
 [ext_resource type="PackedScene" uid="uid://d4lilitkgsutx" path="res://scenes/fogGate.tscn" id="5_ypmak"]
-[ext_resource type="Texture2D" uid="uid://bwi5gokl33g6e" path="res://art/Skeleton enemy.png" id="6_6ymj0"]
+[ext_resource type="PackedScene" uid="uid://dn3206o0fl6x1" path="res://scenes/enemy.tscn" id="6_fcul4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2eb4b"]
 texture = ExtResource("2_jj2kg")
@@ -668,7 +668,7 @@ script = ExtResource("1_gndw2")
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Kufuu, Unbound Ibex" parent="." instance=ExtResource("3_n2klo")]
-position = Vector2(-83, -96)
+position = Vector2(-106, -88)
 
 [node name="TileMap" type="TileMap" parent="." groups=["world"]]
 modulate = Color(0.215686, 0, 0.972549, 1)
@@ -714,12 +714,10 @@ scale = Vector2(1, -1)
 collision_layer = 2
 fireballSpeed = 400
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.658824, 0.490196, 1, 1)
-position = Vector2(197, -100)
-texture = ExtResource("6_6ymj0")
-hframes = 13
-vframes = 5
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4mh2l")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("6_fcul4")]
+
+[node name="Enemy" parent="." groups=["enemy"] instance=ExtResource("6_fcul4")]
+position = Vector2(44, -15)

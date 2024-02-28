@@ -7,18 +7,22 @@ var damage: int
 
 @export var health: int
 @export var baseSpeed: int
-
+var originalColor = modulate
 
 func takeDamage(amount: int):
 	health -= amount
 	print(amount)
+	get_node("Sprite2D").modulate = Color(2,2,2)
+	await(get_tree().create_timer(0.1)).timeout
+	get_node("Sprite2D").modulate = originalColor
+	
 
 func dealDamage(amount: int, target: CharacterBody2D):
 	if target == null:
 		return
 	else:
 		if target.has_method("takeDamage") and target.get_groups() != get_groups():
-			target.takeDamage(damage)
+			target.takeDamage(amount)
 			if target.health <= 0:
 				target.health = 0
 				if target.has_method("die"): target.die()

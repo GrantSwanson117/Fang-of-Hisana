@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn3206o0fl6x1"]
+
+[ext_resource type="Texture2D" uid="uid://bwi5gokl33g6e" path="res://art/Skeleton enemy.png" id="1_wltis"]
+
+[node name="Enemy" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0.666667, 0.482353, 1, 1)
+texture = ExtResource("1_wltis")
+hframes = 14
+vframes = 5

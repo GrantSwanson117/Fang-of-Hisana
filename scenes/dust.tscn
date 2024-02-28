@@ -21,7 +21,6 @@ lifetime_randomness = 1.0
 emission_shape = 1
 emission_sphere_radius = 1.0
 particle_flag_disable_z = true
-direction = Vector3(1, -0.3, 0)
 spread = 21.18
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 20.0

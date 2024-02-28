@@ -4,6 +4,7 @@ extends RigidBody2D
 @export var minProjDamage: int = 30
 @export var maxProjDamage: int = 55
 @export var Explosion: PackedScene = preload("res://scenes/explosion.tscn")
+@onready var player = get_parent().get_node("Fang")
 var damage: int = randi_range(minProjDamage, maxProjDamage)
 
 func _ready():
@@ -11,18 +12,15 @@ func _ready():
 
 func _on_timer_timeout():
 	queue_free()
+	player.isCasting = false
 
 func _on_area_2d_area_entered(area):
 	if !area.get_parent().is_in_group("player"):
-		area.owner.takeDamage(damage)
 		explode()
-
-func _on_body_entered(body):
-	print("balls")
-	if body.is_in_group("world"): explode()
+		if area.owner is CharacterBody2D:
+			player.dealDamage(damage, area.owner)
 
 func explode():
-	linear_velocity = Vector2.ZERO
 	$TrailParticles.emitting = false
 	get_node("FireballVisibility/Area2D").queue_free()
 	area.hide()
@@ -31,3 +29,8 @@ func explode():
 	explosionInstance.rotation = global_rotation
 	explosionInstance.emitting = true
 	get_tree().current_scene.add_child(explosionInstance)
+	linear_velocity = Vector2.ZERO
+
+
+func _on_area_2d_body_entered(body):
+	if body.is_in_group("world"): explode()

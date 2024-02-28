@@ -1,5 +1,6 @@
-Timer
 Sprite2D
+CharacterBody2D
+Timer
 Node2D
 GPUParticles2D
 Area2D
@@ -18,6 +19,5 @@ Label
 Node
 ProgressBar
 CanvasLayer
-CharacterBody2D
 TileMap
 Camera2D
