@@ -19,7 +19,7 @@ func _ready():
 	canDodge = true
 	tree.active = true
 	speed = 150
-	fireballSpeed = 700
+	fireballSpeed = 1000
 
 func _physics_process(delta):
 	if !busy: move(delta)
