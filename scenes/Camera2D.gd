@@ -1,0 +1,26 @@
+extends Camera2D
+
+var shake_amount = 0
+var default_offset: Vector2 = offset
+var posY: int
+var posX: int
+
+@onready var timer: Timer = $Timer
+@onready var tween: Tween = create_tween()
+
+func _ready():
+	set_process(true)
+	randomize()
+
+func _process(_delta):
+	offset = Vector2(randf_range(-1,1) * shake_amount, randf_range(-1,1) * shake_amount)
+
+func shake(time: float, amount: float):
+	timer.wait_time = time
+	shake_amount = amount
+	set_process(true)
+	timer.start()
+	
+func _on_timer_timeout():
+	set_process(false)
+	tween.interpolate_value(self, "offset", 1, 1, tween.TRANS_LINEAR, tween.EASE_IN)

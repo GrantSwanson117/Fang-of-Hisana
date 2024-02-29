@@ -1,8 +1,9 @@
-[gd_scene load_steps=49 format=3 uid="uid://der1r8332tu38"]
+[gd_scene load_steps=50 format=3 uid="uid://der1r8332tu38"]
 
 [ext_resource type="Script" path="res://scripts/fang.gd" id="1_ukpw8"]
 [ext_resource type="Texture2D" uid="uid://c50uuxgh22pnb" path="res://art/fang.png" id="2_feavh"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="2_k7utr"]
+[ext_resource type="Script" path="res://scenes/Camera2D.gd" id="4_k3dee"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kxv0q"]
 animation = &"Attack 1"
@@ -142,7 +143,7 @@ states/Start/position = Vector2(179, 89)
 states/Transition/node = SubResource("AnimationNodeAnimation_siqnc")
 states/Transition/position = Vector2(683.803, -71.2482)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1qu23"), "Run", "Transition", SubResource("AnimationNodeStateMachineTransition_lgfjl"), "Transition", "Idle", SubResource("AnimationNodeStateMachineTransition_e67vk"), "Dodge", "Idle", SubResource("AnimationNodeStateMachineTransition_tva6x"), "Idle", "Dodge", SubResource("AnimationNodeStateMachineTransition_3xnsc"), "Dodge", "Run", SubResource("AnimationNodeStateMachineTransition_s213k"), "Run", "Dodge", SubResource("AnimationNodeStateMachineTransition_5ykr8"), "Idle", "Transition", SubResource("AnimationNodeStateMachineTransition_x440n"), "Transition", "Run", SubResource("AnimationNodeStateMachineTransition_04kr3"), "Attack 1", "Attack 2", SubResource("AnimationNodeStateMachineTransition_838e2"), "Attack 2", "Attack 1", SubResource("AnimationNodeStateMachineTransition_odhe5"), "Idle", "Attack 1", SubResource("AnimationNodeStateMachineTransition_ap7nq"), "Run", "Attack 2", SubResource("AnimationNodeStateMachineTransition_a85f3"), "Idle", "Attack 2", SubResource("AnimationNodeStateMachineTransition_fys2x"), "Run", "Attack 1", SubResource("AnimationNodeStateMachineTransition_lm1h8"), "Attack 1", "Idle", SubResource("AnimationNodeStateMachineTransition_3h6pr"), "Attack 2", "Run", SubResource("AnimationNodeStateMachineTransition_8a11x"), "Attack 2", "Idle", SubResource("AnimationNodeStateMachineTransition_8pw71"), "Attack 1", "Run", SubResource("AnimationNodeStateMachineTransition_rg1yn"), "Magic", "Idle", SubResource("AnimationNodeStateMachineTransition_c4q3r"), "Idle", "Magic", SubResource("AnimationNodeStateMachineTransition_kwh86"), "Magic", "Run", SubResource("AnimationNodeStateMachineTransition_hmwb0"), "Run", "Magic", SubResource("AnimationNodeStateMachineTransition_y0okn")]
-graph_offset = Vector2(5.80301, -87.248)
+graph_offset = Vector2(-62.197, -155.248)
 
 [sub_resource type="Animation" id="Animation_6r4bq"]
 resource_name = "Attack 1"
@@ -518,6 +519,9 @@ position = Vector2(3, 0)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
+script = ExtResource("4_k3dee")
+
+[node name="Timer" type="Timer" parent="Camera2D"]
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_0x2qi")
@@ -566,5 +570,6 @@ shape = SubResource("CapsuleShape2D_lois5")
 [node name="DustPosition" type="Node2D" parent="."]
 position = Vector2(-12, 27)
 
+[connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

@@ -1,11 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://vfqtbyv2di3h"]
+[gd_scene load_steps=21 format=3 uid="uid://vfqtbyv2di3h"]
 
 [ext_resource type="Script" path="res://scripts/ibex_boss.gd" id="1_78y3i"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="2_e6rpe"]
-[ext_resource type="Texture2D" uid="uid://cu2omdjihxx2l" path="res://art/ibex.png" id="2_nqd0c"]
-[ext_resource type="Shader" uid="uid://bcdtkq3dlioyx" path="res://resources/dissolve.tres" id="3_70rcm"]
 [ext_resource type="FontFile" uid="uid://btp5ny0vcgf34" path="res://fonts/alagard.ttf" id="4_235uw"]
-[ext_resource type="Script" path="res://scenes/Sprite.gd" id="5_morfe"]
 [ext_resource type="Script" path="res://scenes/bossUI.gd" id="6_e2vx0"]
 [ext_resource type="Script" path="res://scripts/stateMachine.gd" id="7_0d00o"]
 [ext_resource type="Script" path="res://scripts/attack.gd" id="8_2b6r1"]
@@ -13,9 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://ds1bwu2mibiqf" path="res://art/icon.png" id="9_a7qbt"]
 [ext_resource type="Script" path="res://scripts/follow.gd" id="9_ffwve"]
 [ext_resource type="Script" path="res://scripts/idle.gd" id="10_q7i2u"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e1hn2"]
-shader = ExtResource("3_70rcm")
+[ext_resource type="Texture2D" uid="uid://i6u7nlkved7f" path="res://art/Ibex_charge.PNG" id="11_ms6wn"]
+[ext_resource type="Script" path="res://scenes/charge.gd" id="12_00dfw"]
 
 [sub_resource type="Animation" id="Animation_y8e7a"]
 resource_name = "Attack"
@@ -30,6 +26,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ibh4d"]
+resource_name = "Charge"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_5k3ky"]
@@ -56,6 +69,7 @@ resource_name = "Idle"
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qvias"]
 _data = {
 "Attack": SubResource("Animation_y8e7a"),
+"Charge": SubResource("Animation_ibh4d"),
 "Die": SubResource("Animation_5k3ky"),
 "Idle": SubResource("Animation_c0t4k")
 }
@@ -64,23 +78,28 @@ _data = {
 radius = 13.0
 height = 92.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2ktyi"]
-radius = 28.0
-height = 94.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_87rqh"]
+size = Vector2(63, 94)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxu7n"]
 size = Vector2(88.8889, 95.5555)
 
 [node name="Kufuu, Unbound Ibex" type="CharacterBody2D" groups=["Enemies"]]
+z_index = 1
 position = Vector2(597, 540)
-collision_mask = 4
+collision_mask = 5
 script = ExtResource("1_78y3i")
 meleeRange = 100
+chargeSpeed = 300
 health = 3000
-baseSpeed = 50
+baseSpeed = 80
 
-[node name="StateTimer" type="Timer" parent="."]
-wait_time = 0.1
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -26)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("11_ms6wn")
+hframes = 6
+frame = 5
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.313726)
@@ -88,17 +107,8 @@ position = Vector2(4.17761, 25.3895)
 scale = Vector2(2.90123, 3.42594)
 texture = ExtResource("2_e6rpe")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_e1hn2")
-position = Vector2(10, -16.6665)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_nqd0c")
-offset = Vector2(-50, 0)
-region_enabled = true
-region_rect = Rect2(20.815, 3.585, 564.344, 465.85)
-script = ExtResource("5_morfe")
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Charge"
 libraries = {
 "": SubResource("AnimationLibrary_qvias")
 }
@@ -153,9 +163,9 @@ collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(-12, 17)
+position = Vector2(-12.9553, 16.3326)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_2ktyi")
+shape = SubResource("RectangleShape2D_87rqh")
 debug_color = Color(0, 0.639216, 0.352941, 0.419608)
 
 [node name="Hitbox" type="Area2D" parent="."]
@@ -164,6 +174,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="Hitbox"]
+visible = false
 modulate = Color(1, 0, 0, 0.211765)
 position = Vector2(68.1239, -0.585022)
 scale = Vector2(1.37053, 1.48)
@@ -203,4 +214,13 @@ script = ExtResource("9_ffwve")
 [node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource("10_q7i2u")
 
+[node name="Charge" type="Node2D" parent="StateMachine"]
+script = ExtResource("12_00dfw")
+
+[node name="ChargeTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="body_entered" from="Hurtbox" to="StateMachine/Charge" method="_on_hurtbox_body_entered"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]

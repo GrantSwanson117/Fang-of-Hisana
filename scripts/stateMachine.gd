@@ -5,6 +5,8 @@ var currentState: State
 @onready var label = owner.get_node("debug")
 
 func _ready():
+	for child in get_children():
+		child.set_physics_process(false)
 	changeState("Idle")
 
 func _physics_process(_delta):

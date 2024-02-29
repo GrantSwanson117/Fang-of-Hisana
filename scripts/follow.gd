@@ -1,10 +1,13 @@
 extends State
 
+
 func _ready():
 	pass
 func _physics_process(_delta):
-	pass
+	owner.velocity = owner.direction.normalized() * owner.baseSpeed
 
 func enter():
-	boss.emit_signal("moveTrue")
-	print(boss.name, " entered follow state.")
+	owner.baseSpeed = 80
+	bigGuy.emit_signal("moveTrue")
+	owner.get_node("ChargeTimer").start()
+	#print(boss.name, " entered follow state.")

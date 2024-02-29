@@ -2,16 +2,17 @@ extends Node
 
 class_name State
 
-@onready var boss = get_parent().get_parent()
+@onready var bigGuy = get_parent().get_parent()
 @onready var player = owner.owner.find_child("Fang")
 
 func _ready():
-	pass
-	boss.connect("moveFalse", boss.canMoveFalse)
-	boss.connect("moveTrue", boss.canMoveTrue)
+	if bigGuy.name == "Kufuu, Unbound Ibex":
+		bigGuy.connect("moveFalse", bigGuy.canMoveFalse)
+		bigGuy.connect("moveTrue", bigGuy.canMoveTrue)
+	else: pass
 
 func enter():
-	print(name, " state entered.")
+	#print(name, " state entered.")
 	set_physics_process(true)
 
 func exit():
