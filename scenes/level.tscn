@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://q2epwjby124k"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_gndw2"]
+[ext_resource type="Script" path="res://scenes/level.gd" id="1_mrkso"]
 [ext_resource type="Texture2D" uid="uid://bh6qwxiosmauj" path="res://art/DesertSands.png" id="2_jj2kg"]
 [ext_resource type="PackedScene" uid="uid://vfqtbyv2di3h" path="res://scenes/ibex_boss.tscn" id="3_n2klo"]
 [ext_resource type="PackedScene" uid="uid://der1r8332tu38" path="res://scenes/fang.tscn" id="4_rjsv7"]
@@ -73,7 +73,6 @@ texture = ExtResource("2_jj2kg")
 5:0/0/probability = 0.0
 5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:0/0/physics_layer_0/angular_velocity = 0.0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:0/0/terrains_peering_bit/right_side = 0
 5:0/0/terrains_peering_bit/bottom_right_corner = 0
 5:0/0/terrains_peering_bit/bottom_side = 0
@@ -481,7 +480,6 @@ texture = ExtResource("2_jj2kg")
 5:3/0/probability = 0.0
 5:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:3/0/physics_layer_0/angular_velocity = 0.0
-5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:3/0 = 0
 6:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:3/0/physics_layer_0/angular_velocity = 0.0
@@ -491,7 +489,6 @@ texture = ExtResource("2_jj2kg")
 7:3/0/probability = 0.0
 7:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:3/0/physics_layer_0/angular_velocity = 0.0
-7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:3/0/terrains_peering_bit/right_side = 0
 7:3/0/terrains_peering_bit/bottom_right_corner = 0
 7:3/0/terrains_peering_bit/bottom_side = 0
@@ -663,7 +660,7 @@ glow_hdr_luminance_cap = 20.0
 
 [node name="Node2D" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_gndw2")
+script = ExtResource("1_mrkso")
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Kufuu, Unbound Ibex" parent="." instance=ExtResource("3_n2klo")]
@@ -719,21 +716,23 @@ environment = SubResource("Environment_4mh2l")
 [node name="RightSpawners" type="Node2D" parent="."]
 position = Vector2(290, -4)
 
-[node name="RS1" type="Node2D" parent="RightSpawners"]
+[node name="RS1" type="Marker2D" parent="RightSpawners"]
 position = Vector2(0, 118)
 
-[node name="RS2" type="Node2D" parent="RightSpawners"]
+[node name="RS2" type="Marker2D" parent="RightSpawners"]
 
-[node name="RS3" type="Node2D" parent="RightSpawners"]
+[node name="RS3" type="Marker2D" parent="RightSpawners"]
 position = Vector2(0, -105)
 
 [node name="LeftSpawners" type="Node2D" parent="."]
 position = Vector2(-128, -4)
 
-[node name="LS1" type="Node2D" parent="LeftSpawners"]
+[node name="LS1" type="Marker2D" parent="LeftSpawners"]
 position = Vector2(0, 118)
 
-[node name="LS2" type="Node2D" parent="LeftSpawners"]
+[node name="LS2" type="Marker2D" parent="LeftSpawners"]
 
-[node name="LS3" type="Node2D" parent="LeftSpawners"]
+[node name="LS3" type="Marker2D" parent="LeftSpawners"]
 position = Vector2(0, -107)
+
+[node name="SpawnTimer" type="Timer" parent="."]

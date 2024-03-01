@@ -7,17 +7,17 @@ var motion = Vector2.ZERO
 @onready var tree = $AnimationTree
 var input_vector = Vector2.ZERO
 @export var busy: bool
-@export var canDodge: bool
+@export var canAction: bool
+var canCast = true
 var Fireball = preload("res://scenes/fireball.tscn")
 var Dust = preload("res://scenes/dust.tscn")
-var isCasting: bool
 
 var attackSwitch = false
 
 func _ready():
 	$Hurtbox/CollisionShape2D.disabled = false
 	busy = false
-	canDodge = true
+	canAction = true
 	tree.active = true
 	speed = 150
 	fireballSpeed = 500
@@ -28,12 +28,18 @@ func _physics_process(delta):
 	set_velocity(motion)
 	move_and_slide()
 	
-	if Input.is_action_just_pressed("dodge") and velocity != Vector2.ZERO and canDodge:
+	if Input.is_action_just_pressed("dodge") and velocity != Vector2.ZERO and canAction:
 		dodge(input_vector)
-	if Input.is_action_just_pressed("fireball") and !isCasting:
-		shootFireball()
+	if Input.is_action_just_pressed("fireball") and canAction and canCast:
+		shootFireball((get_global_mouse_position() - global_position).normalized())
+		await(get_tree().create_timer(0.13)).timeout
+		shootFireball((get_global_mouse_position() - global_position).normalized().rotated(deg_to_rad(-8)))
+		await(get_tree().create_timer(0.13)).timeout
+		shootFireball((get_global_mouse_position() - global_position).normalized().rotated(deg_to_rad(8)))
+		$CastTimer.start()
+
 	
-	if Input.is_action_just_pressed("attack") and !busy and !isCasting:
+	if Input.is_action_just_pressed("attack") and !busy and canAction:
 		attackSwitch = !attackSwitch
 		if attackSwitch == false: tree["parameters/conditions/attackA"] = true 
 		elif attackSwitch == true: tree["parameters/conditions/attackB"] = true 
@@ -45,7 +51,7 @@ func dodge(direction):
 	velocity = speed * direction
 	var tween = create_tween()
 	tween.tween_property(self, "speed", baseSpeed, 0.3)
-	canDodge = false
+	canAction = false
 	$DodgeTimer.start()
 	var dustInstance = Dust.instantiate()
 	get_tree().current_scene.add_child(dustInstance)
@@ -54,7 +60,7 @@ func dodge(direction):
 	dustInstance.rotation = global_rotation
 	dustInstance.emitting = true
 
-func _on_dodge_timer_timeout(): canDodge = true
+func _on_dodge_timer_timeout(): canAction = true
 
 func move(_delta):
 	input_vector.x = Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -63,14 +69,13 @@ func move(_delta):
 	
 	motion = input_vector * speed
 
-func shootFireball():
+func shootFireball(dir: Vector2):
 	var fireballInstance = Fireball.instantiate()
 	get_tree().current_scene.add_child(fireballInstance)
 	fireballInstance.position = self.global_position
-	fireballInstance.linear_velocity = (get_global_mouse_position() - self.global_position).normalized() * fireballSpeed
+	fireballInstance.linear_velocity = dir * fireballSpeed
 	animator.play("Magic")
-	#isCasting = true 
-	#TURN THIS ON!!!
+	canCast = false
 	
 func updateAnimParameters():
 	if !busy:
@@ -95,3 +100,6 @@ func _on_hitbox_area_entered(area):
 	if $Collider.owner != area.owner:
 		damage = randi_range(minDamage, maxDamage)
 		dealDamage(damage, area.get_parent())
+
+func _on_cast_timer_timeout():
+	canCast = true

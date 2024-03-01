@@ -10,9 +10,7 @@ var damage: int = randi_range(minProjDamage, maxProjDamage)
 func _ready():
 	$FireballVisibility/Timer.start()
 
-func _on_timer_timeout():
-	queue_free()
-	player.isCasting = false
+func _on_timer_timeout(): queue_free()
 
 func _on_area_2d_area_entered(area):
 	if !area.get_parent().is_in_group("player"):

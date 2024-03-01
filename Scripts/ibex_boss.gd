@@ -8,6 +8,7 @@ signal moveFalse
 @export var meleeRange : int
 @onready var stateMachine = get_node("StateMachine")
 @export var chargeSpeed: int
+@export var maxCharges: int
 
 var canMove: bool = true
 var direction: Vector2
@@ -29,7 +30,6 @@ func _physics_process(delta):
 	if direction.length() > meleeRange and stateMachine.currentState != get_node("StateMachine/Charge"):
 		stateMachine.changeState("Follow")
 		if $ChargeTimer.is_stopped(): $ChargeTimer.start($ChargeTimer.wait_time)
-		direction.normalized() * baseSpeed
 	if canMove: move_and_collide(velocity * delta)
 	if stateMachine.currentState == stateMachine.get_node("Follow"): velocity = direction.normalized() * baseSpeed
 func canMoveFalse(): 
@@ -39,7 +39,7 @@ func canMoveTrue():
 	canMove = true
 	
 func startEncounter():
-	pass#stateMachine.changeState("Follow")
+	stateMachine.changeState("Follow")
 
 func die():
 	$AnimationPlayer.play("Die")

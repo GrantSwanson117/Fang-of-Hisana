@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/fang.gd" id="1_ukpw8"]
 [ext_resource type="Texture2D" uid="uid://c50uuxgh22pnb" path="res://art/fang.png" id="2_feavh"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="2_k7utr"]
-[ext_resource type="Script" path="res://scenes/Camera2D.gd" id="4_k3dee"]
+[ext_resource type="Script" path="res://scripts/Camera2D.gd" id="4_dajxu"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kxv0q"]
 animation = &"Attack 1"
@@ -495,6 +495,7 @@ height = 22.0
 [node name="Fang" type="CharacterBody2D" groups=["player"]]
 self_modulate = Color(0, 0, 0, 1)
 script = ExtResource("1_ukpw8")
+fireballSpeed = 300
 busy = true
 minDamage = 15
 maxDamage = 30
@@ -519,7 +520,7 @@ position = Vector2(3, 0)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
-script = ExtResource("4_k3dee")
+script = ExtResource("4_dajxu")
 
 [node name="Timer" type="Timer" parent="Camera2D"]
 
@@ -562,14 +563,18 @@ shape = SubResource("CapsuleShape2D_ip50g")
 disabled = true
 debug_color = Color(0, 0.643137, 0.270588, 0.419608)
 
+[node name="DustPosition" type="Node2D" parent="."]
+position = Vector2(-12, 27)
+
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 21)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lois5")
 
-[node name="DustPosition" type="Node2D" parent="."]
-position = Vector2(-12, 27)
+[node name="CastTimer" type="Timer" parent="."]
+wait_time = 0.8
 
 [connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="CastTimer" to="." method="_on_cast_timer_timeout"]

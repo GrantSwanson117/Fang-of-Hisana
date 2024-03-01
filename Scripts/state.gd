@@ -9,7 +9,6 @@ func _ready():
 	if bigGuy.name == "Kufuu, Unbound Ibex":
 		bigGuy.connect("moveFalse", bigGuy.canMoveFalse)
 		bigGuy.connect("moveTrue", bigGuy.canMoveTrue)
-	else: pass
 
 func enter():
 	#print(name, " state entered.")

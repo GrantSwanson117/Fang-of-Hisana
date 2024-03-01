@@ -5,6 +5,10 @@ extends Area2D
 @export var triggerGate: bool
 @onready var stateMachine = target.find_child("FiniteStateMachine")
 
+func _ready():
+	idle = false
+	$AnimationPlayer.play("Inactive")
+
 func _physics_process(_delta):
 	if target == null:
 		idle = false

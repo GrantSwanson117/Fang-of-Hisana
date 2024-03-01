@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/ibex_boss.gd" id="1_78y3i"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="2_e6rpe"]
 [ext_resource type="FontFile" uid="uid://btp5ny0vcgf34" path="res://fonts/alagard.ttf" id="4_235uw"]
-[ext_resource type="Script" path="res://scenes/bossUI.gd" id="6_e2vx0"]
+[ext_resource type="Script" path="res://scripts/bossUI.gd" id="4_vu4ix"]
 [ext_resource type="Script" path="res://scripts/stateMachine.gd" id="7_0d00o"]
 [ext_resource type="Script" path="res://scripts/attack.gd" id="8_2b6r1"]
 [ext_resource type="FontFile" uid="uid://v2dunwyf5lmj" path="res://fonts/VeniceClassic.ttf" id="8_m7tmp"]
@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://scripts/follow.gd" id="9_ffwve"]
 [ext_resource type="Script" path="res://scripts/idle.gd" id="10_q7i2u"]
 [ext_resource type="Texture2D" uid="uid://i6u7nlkved7f" path="res://art/Ibex_charge.PNG" id="11_ms6wn"]
-[ext_resource type="Script" path="res://scenes/charge.gd" id="12_00dfw"]
+[ext_resource type="Script" path="res://scripts/charge.gd" id="12_3mqhp"]
 
 [sub_resource type="Animation" id="Animation_y8e7a"]
 resource_name = "Attack"
@@ -91,6 +91,7 @@ collision_mask = 5
 script = ExtResource("1_78y3i")
 meleeRange = 100
 chargeSpeed = 300
+maxCharges = 4
 health = 3000
 baseSpeed = 80
 
@@ -114,7 +115,7 @@ libraries = {
 }
 
 [node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("6_e2vx0")
+script = ExtResource("4_vu4ix")
 
 [node name="ProgressBar" type="ProgressBar" parent="UI"]
 custom_minimum_size = Vector2(200, 0)
@@ -215,7 +216,7 @@ script = ExtResource("9_ffwve")
 script = ExtResource("10_q7i2u")
 
 [node name="Charge" type="Node2D" parent="StateMachine"]
-script = ExtResource("12_00dfw")
+script = ExtResource("12_3mqhp")
 
 [node name="ChargeTimer" type="Timer" parent="."]
 wait_time = 3.0

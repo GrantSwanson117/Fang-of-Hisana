@@ -9,6 +9,7 @@ var canMove = true
 func _ready():
 	health = 150
 	$AnimationPlayer.play("Idle")
+	
 	#print(canMove)
 	$Hurtbox/CollisionShape2D.disabled = false
 

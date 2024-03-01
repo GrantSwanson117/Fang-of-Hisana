@@ -9,12 +9,8 @@ res://scenes/enemy.tscn
 res://scenes/fang.tscn
 res://scenes/dialogue.tscn
 res://scenes/ibex_boss.tscn
+res://scenes/fireball.tscn
+res://scenes/fogGate.tscn
+res://scripts/trigger.gd
 res://scripts/ibex_boss.gd
-res://scenes/charge.gd
-res://scripts/stateMachine.gd
-res://scripts/follow.gd
-res://scripts/state.gd
-res://scripts/attack.gd
-res://scripts/idle.gd
-res://scripts/enemy.gd
-res://scenes/Camera2D.gd
+res://scenes/fireball.gd

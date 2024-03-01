@@ -23,4 +23,4 @@ func shake(time: float, amount: float):
 	
 func _on_timer_timeout():
 	set_process(false)
-	tween.interpolate_value(self, "offset", 1, 1, tween.TRANS_LINEAR, tween.EASE_IN)
+	Tween.interpolate_value(self, "offset", 1, 1, Tween.TRANS_LINEAR, Tween.EASE_IN)
