@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=20 format=3 uid="uid://bcdtkq3dlioyx"]
+[gd_resource type="VisualShader" load_steps=22 format=3 uid="uid://bcdtkq3dlioyx"]
 
 [ext_resource type="Texture2D" uid="uid://c3acuw58ixh7c" path="res://resources/Noise.tres" id="1_mpa4u"]
 
@@ -38,7 +38,7 @@ output_port_for_preview = 0
 parameter_name = "Dissolve"
 qualifier = 2
 default_value_enabled = true
-default_value = -0.1
+default_value = 0.5
 
 [sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_84s40"]
 
@@ -47,6 +47,16 @@ function = 0
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_advt2"]
 input_name = "time"
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_60v68"]
+output_port_for_preview = 0
+constant = 0.5
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_eu2d4"]
+output_port_for_preview = 0
+parameter_name = "dissolveFloat"
+default_value_enabled = true
+default_value = 1.0
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_frkb8"]
 input_name = "uv"
@@ -68,17 +78,14 @@ code = "shader_type canvas_item;
 render_mode blend_mix;
 
 uniform sampler2D tex_frg_4;
+uniform float dissolveFloat = 1;
 
 
 
 void fragment() {
-// Input:3
-	vec2 n_out3p0 = UV;
-
-
 	vec4 n_out2p0;
 // Texture2D:2
-	n_out2p0 = texture(TEXTURE, n_out3p0);
+	n_out2p0 = texture(TEXTURE, UV);
 	float n_out2p4 = n_out2p0.a;
 
 
@@ -90,16 +97,12 @@ void fragment() {
 	vec4 n_out4p0 = texture(tex_frg_4, n_out5p0);
 
 
-// Input:23
-	float n_out23p0 = TIME;
-
-
-// FloatFunc:22
-	float n_out22p0 = sin(n_out23p0);
+// FloatParameter:25
+	float n_out25p0 = dissolveFloat;
 
 
 // FloatFunc:10
-	float n_out10p0 = abs(n_out22p0);
+	float n_out10p0 = abs(n_out25p0);
 
 
 // Step:7
@@ -167,7 +170,7 @@ nodes/fragment/11/position = Vector2(480, 820)
 nodes/fragment/12/node = SubResource("VisualShaderNodeFloatOp_na1fo")
 nodes/fragment/12/position = Vector2(920, 660)
 nodes/fragment/13/node = SubResource("VisualShaderNodeFloatOp_awxn8")
-nodes/fragment/13/position = Vector2(20, 840)
+nodes/fragment/13/position = Vector2(80, 860)
 nodes/fragment/16/node = SubResource("VisualShaderNodeColorConstant_ix253")
 nodes/fragment/16/position = Vector2(600, 1020)
 nodes/fragment/17/node = SubResource("VisualShaderNodeColorOp_v4ofd")
@@ -175,13 +178,18 @@ nodes/fragment/17/position = Vector2(1560, 240)
 nodes/fragment/18/node = SubResource("VisualShaderNodeVectorOp_ymfvm")
 nodes/fragment/18/position = Vector2(1300, 880)
 nodes/fragment/19/node = SubResource("VisualShaderNodeFloatConstant_g65ej")
-nodes/fragment/19/position = Vector2(-220, 1100)
+nodes/fragment/19/position = Vector2(-260, 1100)
 nodes/fragment/20/node = SubResource("VisualShaderNodeFloatParameter_64cgt")
-nodes/fragment/20/position = Vector2(-1700, 660)
+nodes/fragment/20/position = Vector2(-1500, 660)
 nodes/fragment/21/node = SubResource("VisualShaderNodeMix_84s40")
-nodes/fragment/21/position = Vector2(-960, 780)
+nodes/fragment/21/position = Vector2(-380, 880)
 nodes/fragment/22/node = SubResource("VisualShaderNodeFloatFunc_iuhh8")
-nodes/fragment/22/position = Vector2(-620.68, 939.198)
+nodes/fragment/22/position = Vector2(-840, 1200)
 nodes/fragment/23/node = SubResource("VisualShaderNodeInput_advt2")
-nodes/fragment/23/position = Vector2(-940, 1060)
-nodes/fragment/connections = PackedInt32Array(3, 0, 2, 0, 5, 0, 4, 0, 2, 4, 6, 0, 6, 0, 0, 1, 4, 0, 7, 0, 7, 0, 6, 1, 10, 0, 7, 1, 4, 0, 11, 0, 11, 0, 12, 1, 7, 0, 12, 0, 10, 0, 13, 0, 13, 0, 11, 1, 2, 0, 17, 0, 17, 0, 0, 0, 12, 0, 18, 0, 18, 0, 17, 1, 16, 0, 18, 1, 19, 0, 13, 1, 20, 0, 21, 2, 23, 0, 22, 0, 22, 0, 10, 0)
+nodes/fragment/23/position = Vector2(-1220, 1200)
+nodes/fragment/24/node = SubResource("VisualShaderNodeFloatConstant_60v68")
+nodes/fragment/24/position = Vector2(-780, 960)
+nodes/fragment/25/node = SubResource("VisualShaderNodeFloatParameter_eu2d4")
+nodes/fragment/25/position = Vector2(-900, 660)
+nodes/fragment/connections = PackedInt32Array(2, 4, 6, 0, 4, 0, 7, 0, 7, 0, 6, 1, 10, 0, 7, 1, 4, 0, 11, 0, 11, 0, 12, 1, 7, 0, 12, 0, 10, 0, 13, 0, 13, 0, 11, 1, 2, 0, 17, 0, 12, 0, 18, 0, 18, 0, 17, 1, 19, 0, 13, 1, 5, 0, 4, 0, 16, 0, 18, 1, 17, 0, 0, 0, 6, 0, 0, 1, 25, 0, 10, 0, 25, 0, 21, 2)
+metadata/dissolveFloat = 1.0

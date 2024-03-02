@@ -3,7 +3,8 @@ extends Node
 class_name State
 
 @onready var bigGuy = get_parent().get_parent()
-@onready var player = owner.owner.find_child("Fang")
+@onready var player = bigGuy.get_parent().find_child("Fang")
+@onready var animator = owner.get_node("AnimationPlayer")
 
 func _ready():
 	if bigGuy.name == "Kufuu, Unbound Ibex":

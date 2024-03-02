@@ -5,6 +5,10 @@ func _ready():
 	pass
 func _physics_process(_delta):
 	owner.velocity = owner.direction.normalized() * owner.baseSpeed
+	print(owner.get_node("Sprite2D").name)
+	owner.get_node("Hitbox").look_at(player.global_position)
+	if owner.direction.x > 0: owner.get_node("Sprite2D").flip_h = true
+	else: owner.get_node("Sprite2D").flip_h = false
 
 func enter():
 	owner.baseSpeed = 80

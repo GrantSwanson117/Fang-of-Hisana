@@ -17,7 +17,7 @@ config/icon="res://art/warrior.png"
 
 [autoload]
 
-Level="*res://scripts/level.gd"
+Level="*res://scripts/level_real.gd"
 
 [display]
 

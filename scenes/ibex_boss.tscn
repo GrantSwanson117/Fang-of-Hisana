@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://vfqtbyv2di3h"]
+[gd_scene load_steps=22 format=3 uid="uid://vfqtbyv2di3h"]
 
 [ext_resource type="Script" path="res://scripts/ibex_boss.gd" id="1_78y3i"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="2_e6rpe"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" path="res://scripts/idle.gd" id="10_q7i2u"]
 [ext_resource type="Texture2D" uid="uid://i6u7nlkved7f" path="res://art/Ibex_charge.PNG" id="11_ms6wn"]
 [ext_resource type="Script" path="res://scripts/charge.gd" id="12_3mqhp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sgwrc"]
 
 [sub_resource type="Animation" id="Animation_y8e7a"]
 resource_name = "Attack"
@@ -92,10 +94,11 @@ script = ExtResource("1_78y3i")
 meleeRange = 100
 chargeSpeed = 300
 maxCharges = 4
-health = 3000
+health = 500
 baseSpeed = 80
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sgwrc")
 position = Vector2(-1, -26)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("11_ms6wn")
@@ -103,7 +106,7 @@ hframes = 6
 frame = 5
 
 [node name="Shadow" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.313726)
+modulate = Color(1, 1, 1, 0.3)
 position = Vector2(4.17761, 25.3895)
 scale = Vector2(2.90123, 3.42594)
 texture = ExtResource("2_e6rpe")
@@ -188,6 +191,7 @@ one_way_collision_margin = 0.0
 debug_color = Color(0.992157, 0, 0.266667, 0.419608)
 
 [node name="debug" type="Label" parent="."]
+visible = false
 anchors_preset = -1
 anchor_top = -0.0123457
 anchor_right = 0.0199653

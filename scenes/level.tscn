@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://q2epwjby124k"]
 
-[ext_resource type="Script" path="res://scenes/level.gd" id="1_mrkso"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_87aug"]
 [ext_resource type="Texture2D" uid="uid://bh6qwxiosmauj" path="res://art/DesertSands.png" id="2_jj2kg"]
 [ext_resource type="PackedScene" uid="uid://vfqtbyv2di3h" path="res://scenes/ibex_boss.tscn" id="3_n2klo"]
 [ext_resource type="PackedScene" uid="uid://der1r8332tu38" path="res://scenes/fang.tscn" id="4_rjsv7"]
@@ -658,9 +658,9 @@ glow_blend_mode = 0
 glow_hdr_threshold = 0.05
 glow_hdr_luminance_cap = 20.0
 
-[node name="Node2D" type="Node2D"]
+[node name="aweadsaasdd" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_mrkso")
+script = ExtResource("1_87aug")
 metadata/_edit_horizontal_guides_ = []
 
 [node name="Kufuu, Unbound Ibex" parent="." instance=ExtResource("3_n2klo")]

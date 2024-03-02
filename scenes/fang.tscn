@@ -495,7 +495,7 @@ height = 22.0
 [node name="Fang" type="CharacterBody2D" groups=["player"]]
 self_modulate = Color(0, 0, 0, 1)
 script = ExtResource("1_ukpw8")
-fireballSpeed = 300
+fireballSpeed = 1000
 busy = true
 minDamage = 15
 maxDamage = 30
@@ -503,7 +503,7 @@ health = 20
 baseSpeed = 150
 
 [node name="Shadow" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.313726)
+modulate = Color(1, 1, 1, 0.3)
 position = Vector2(0, 28)
 texture = ExtResource("2_k7utr")
 

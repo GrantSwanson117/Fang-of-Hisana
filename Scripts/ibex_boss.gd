@@ -9,6 +9,8 @@ signal moveFalse
 @onready var stateMachine = get_node("StateMachine")
 @export var chargeSpeed: int
 @export var maxCharges: int
+var dead : bool = false
+var elapsed_time = 0.0
 
 var canMove: bool = true
 var direction: Vector2
@@ -32,6 +34,20 @@ func _physics_process(delta):
 		if $ChargeTimer.is_stopped(): $ChargeTimer.start($ChargeTimer.wait_time)
 	if canMove: move_and_collide(velocity * delta)
 	if stateMachine.currentState == stateMachine.get_node("Follow"): velocity = direction.normalized() * baseSpeed
+
+func _process(delta):
+	#Dissolve out
+	if dead:
+		$Sprite2D.material.shader = load("res://resources/dissolve.tres")
+		var t = elapsed_time / 3
+		t = clamp(t, 0.0, 1.0)
+		elapsed_time += delta
+		var lerpValue = lerp(1.1, 0.0, t)
+		$Sprite2D.material.set_shader_parameter('dissolveFloat', lerpValue)
+		$Shadow.self_modulate = Color(1, 1, 1, lerp(1.0, 0.0, elapsed_time/3))
+		$UI/ProgressBar/Label.self_modulate = Color(1, 1, 1, lerp(1.0, 0.0, elapsed_time/3))
+		if lerpValue == 0: queue_free()
+	
 func canMoveFalse(): 
 	canMove = false
 
@@ -42,7 +58,9 @@ func startEncounter():
 	stateMachine.changeState("Follow")
 
 func die():
+	dead = true
 	$AnimationPlayer.play("Die")
+	set_physics_process(false)
 
 func _on_hitbox_area_entered(area):
 	dealDamage(damage, area.get_parent())

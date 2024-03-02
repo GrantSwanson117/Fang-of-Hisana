@@ -1,7 +1,7 @@
 extends Entity
 
 @export var speed: int
-@export var fireballSpeed: int
+@export var fireballSpeed: int = 0
 var motion = Vector2.ZERO
 @onready var animator = $AnimationPlayer
 @onready var tree = $AnimationTree
@@ -20,7 +20,7 @@ func _ready():
 	canAction = true
 	tree.active = true
 	speed = 150
-	fireballSpeed = 500
+	fireballSpeed = 800
 
 func _physics_process(delta):
 	if !busy: move(delta)
@@ -39,7 +39,7 @@ func _physics_process(delta):
 		$CastTimer.start()
 
 	
-	if Input.is_action_just_pressed("attack") and !busy and canAction:
+	if Input.is_action_just_pressed("attack") and !busy:
 		attackSwitch = !attackSwitch
 		if attackSwitch == false: tree["parameters/conditions/attackA"] = true 
 		elif attackSwitch == true: tree["parameters/conditions/attackB"] = true 

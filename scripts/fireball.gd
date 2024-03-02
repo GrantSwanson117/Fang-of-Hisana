@@ -15,7 +15,6 @@ func _on_timer_timeout(): queue_free()
 func _on_area_2d_area_entered(area):
 	if !area.get_parent().is_in_group("player"):
 		explode()
-		print(area.owner.name)
 		if area.owner is CharacterBody2D:
 			player.dealDamage(damage, area.owner)
 

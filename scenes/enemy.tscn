@@ -1,8 +1,18 @@
-[gd_scene load_steps=31 format=3 uid="uid://dn3206o0fl6x1"]
+[gd_scene load_steps=40 format=3 uid="uid://dn3206o0fl6x1"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_exx0r"]
 [ext_resource type="Texture2D" uid="uid://bwi5gokl33g6e" path="res://art/Skeleton enemy.png" id="1_wltis"]
+[ext_resource type="Shader" uid="uid://bcdtkq3dlioyx" path="res://resources/dissolve.tres" id="2_xfbkd"]
+[ext_resource type="Script" path="res://scripts/stateMachine.gd" id="4_ri662"]
+[ext_resource type="Script" path="res://scripts/enemyAttack.gd" id="5_qi6fr"]
+[ext_resource type="Script" path="res://scripts/enemyFollow.gd" id="6_4ta0c"]
 [ext_resource type="FontFile" uid="uid://v2dunwyf5lmj" path="res://fonts/VeniceClassic.ttf" id="6_5h08a"]
+[ext_resource type="Script" path="res://scripts/enemyIdle.gd" id="7_xyy5p"]
+[ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="9_e2caq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_315bj"]
+shader = ExtResource("2_xfbkd")
+shader_parameter/dissolveFloat = 1.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tg73x"]
 animation = &"Attack1"
@@ -108,7 +118,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_wfx1d"]
 resource_name = "Attack2"
 length = 0.9
-loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -188,10 +197,8 @@ tracks/4/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_rp7o0"]
-resource_name = "Idle"
-length = 0.8
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_f8ni1"]
+resource_name = "Spawn"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -199,10 +206,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [39, 40, 41, 42]
+"values": [41]
 }
 
 [sub_resource type="Animation" id="Animation_04hiu"]
@@ -222,12 +229,30 @@ tracks/0/keys = {
 "values": [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37]
 }
 
+[sub_resource type="Animation" id="Animation_rp7o0"]
+resource_name = "Idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [39, 40, 41, 42]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v53xe"]
 _data = {
 "Attack1": SubResource("Animation_xxhue"),
 "Attack2": SubResource("Animation_wfx1d"),
 "Die": SubResource("Animation_ony26"),
 "Idle": SubResource("Animation_rp7o0"),
+"Spawn": SubResource("Animation_f8ni1"),
 "Walk": SubResource("Animation_04hiu")
 }
 
@@ -239,14 +264,22 @@ height = 32.0
 radius = 8.0
 height = 26.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a43yd"]
+radius = 4.0
+height = 22.0
+
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_exx0r")
+meleeRange = 1
+health = 150
+baseSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(0.741176, 0.686275, 1, 1)
+material = SubResource("ShaderMaterial_315bj")
 texture = ExtResource("1_wltis")
 hframes = 13
 vframes = 5
+frame = 27
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_3b7h4")
@@ -271,6 +304,7 @@ debug_color = Color(0, 0.643137, 0.301961, 0.360784)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(16, 1)
 shape = SubResource("CapsuleShape2D_2qs61")
+disabled = true
 debug_color = Color(0.996078, 0, 0.184314, 0.32549)
 
 [node name="debug" type="Label" parent="."]
@@ -290,3 +324,26 @@ text = "debug
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="StateMachine" type="Node2D" parent="."]
+script = ExtResource("4_ri662")
+
+[node name="Attack" type="Node2D" parent="StateMachine"]
+script = ExtResource("5_qi6fr")
+
+[node name="Follow" type="Node2D" parent="StateMachine"]
+script = ExtResource("6_4ta0c")
+
+[node name="Idle" type="Node2D" parent="StateMachine"]
+script = ExtResource("7_xyy5p")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.298039)
+position = Vector2(0, 18)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("9_e2caq")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_a43yd")
