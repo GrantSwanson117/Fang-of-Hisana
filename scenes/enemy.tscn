@@ -109,15 +109,29 @@ tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.5, 0.7),
+"times": PackedFloat32Array(0.5, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StateMachine/Attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attackEnd"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_wfx1d"]
 resource_name = "Attack2"
-length = 0.9
+length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -125,10 +139,36 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.5, 0.6, 0.7, 0.8),
+"times": PackedFloat32Array(0, 0.3, 0.4, 0.5, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [7, 8, 9, 10, 11, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StateMachine/Attack")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attackEnd"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_ony26"]
@@ -197,6 +237,23 @@ tracks/4/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_rp7o0"]
+resource_name = "Idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [39, 40, 41, 42]
+}
+
 [sub_resource type="Animation" id="Animation_f8ni1"]
 resource_name = "Spawn"
 tracks/0/type = "value"
@@ -229,23 +286,6 @@ tracks/0/keys = {
 "values": [26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37]
 }
 
-[sub_resource type="Animation" id="Animation_rp7o0"]
-resource_name = "Idle"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [39, 40, 41, 42]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v53xe"]
 _data = {
 "Attack1": SubResource("Animation_xxhue"),
@@ -261,7 +301,7 @@ radius = 8.0
 height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2qs61"]
-radius = 8.0
+radius = 11.0
 height = 26.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a43yd"]
@@ -269,9 +309,11 @@ radius = 4.0
 height = 22.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 16
+collision_mask = 16
 script = ExtResource("1_exx0r")
-meleeRange = 1
-health = 150
+meleeRange = 35
+attackCooldown = 1
 baseSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -279,7 +321,7 @@ material = SubResource("ShaderMaterial_315bj")
 texture = ExtResource("1_wltis")
 hframes = 13
 vframes = 5
-frame = 27
+frame = 9
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_3b7h4")
@@ -300,15 +342,16 @@ disabled = true
 debug_color = Color(0, 0.643137, 0.301961, 0.360784)
 
 [node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(16, 1)
+position = Vector2(19, 1)
 shape = SubResource("CapsuleShape2D_2qs61")
 disabled = true
 debug_color = Color(0.996078, 0, 0.184314, 0.32549)
 
 [node name="debug" type="Label" parent="."]
-visible = false
 anchors_preset = -1
 anchor_top = -0.0123457
 anchor_right = 0.0199653
@@ -347,3 +390,8 @@ texture = ExtResource("9_e2caq")
 position = Vector2(0, 16)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_a43yd")
+
+[node name="DamageNumbersPosition" type="Marker2D" parent="."]
+position = Vector2(0, -20)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

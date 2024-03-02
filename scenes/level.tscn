@@ -658,7 +658,7 @@ glow_blend_mode = 0
 glow_hdr_threshold = 0.05
 glow_hdr_luminance_cap = 20.0
 
-[node name="aweadsaasdd" type="Node2D"]
+[node name="Level" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_87aug")
 metadata/_edit_horizontal_guides_ = []

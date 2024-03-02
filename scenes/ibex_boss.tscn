@@ -94,7 +94,7 @@ script = ExtResource("1_78y3i")
 meleeRange = 100
 chargeSpeed = 300
 maxCharges = 4
-health = 500
+maxHealth = 3000
 baseSpeed = 80
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -226,6 +226,14 @@ script = ExtResource("12_3mqhp")
 wait_time = 3.0
 one_shot = true
 
+[node name="ChargeDurationTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="DamageNumbersPosition" type="Marker2D" parent="."]
+position = Vector2(0, -51)
+
 [connection signal="body_entered" from="Hurtbox" to="StateMachine/Charge" method="_on_hurtbox_body_entered"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]
+[connection signal="timeout" from="ChargeDurationTimer" to="StateMachine/Charge" method="_on_charge_duration_timer_timeout"]

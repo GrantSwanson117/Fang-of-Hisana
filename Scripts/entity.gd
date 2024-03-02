@@ -4,14 +4,17 @@ class_name Entity
 var damage: int
 @export var minDamage: int
 @export var maxDamage: int
+@onready var numberOrigin = get_node("DamageNumbersPosition")
 
-@export var health: int
+var health: int
+@export var maxHealth : int
 @export var baseSpeed: int
 var originalColor = modulate
 
+func _ready(): health = maxHealth
+
 func takeDamage(amount: int):
 	health -= amount
-	print(amount)
 	get_node("Sprite2D").modulate = Color(2,2,2)
 	await(get_tree().create_timer(0.1)).timeout
 	get_node("Sprite2D").modulate = originalColor
@@ -22,6 +25,9 @@ func dealDamage(amount: int, target: CharacterBody2D):
 		return
 	else:
 		if target.has_method("takeDamage") and target.get_groups() != get_groups():
+			if amount > maxDamage - 5:
+				DamageNumbers.displayNumber(amount, target.numberOrigin.global_position, true)
+			else: DamageNumbers.displayNumber(amount, target.numberOrigin.global_position, false)
 			target.takeDamage(amount)
 			if target.health <= 0:
 				target.health = 0

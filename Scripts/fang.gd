@@ -6,8 +6,9 @@ var motion = Vector2.ZERO
 @onready var animator = $AnimationPlayer
 @onready var tree = $AnimationTree
 var input_vector = Vector2.ZERO
-@export var busy: bool
-@export var canAction: bool
+@export var busy: bool = false
+@export var canAction: bool = true
+
 var canCast = true
 var Fireball = preload("res://scenes/fireball.tscn")
 var Dust = preload("res://scenes/dust.tscn")
@@ -15,6 +16,7 @@ var Dust = preload("res://scenes/dust.tscn")
 var attackSwitch = false
 
 func _ready():
+	health = maxHealth
 	$Hurtbox/CollisionShape2D.disabled = false
 	busy = false
 	canAction = true
@@ -37,14 +39,16 @@ func _physics_process(delta):
 		await(get_tree().create_timer(0.13)).timeout
 		shootFireball((get_global_mouse_position() - global_position).normalized().rotated(deg_to_rad(8)))
 		$CastTimer.start()
-
+	
 	
 	if Input.is_action_just_pressed("attack") and !busy:
 		attackSwitch = !attackSwitch
 		if attackSwitch == false: tree["parameters/conditions/attackA"] = true 
 		elif attackSwitch == true: tree["parameters/conditions/attackB"] = true 
 		tree["parameters/conditions/idle"] = false
-
+		
+	if Input.is_action_just_pressed("repulse") and !busy:
+		print("Repulse!")
 func dodge(direction):
 	speed = 300
 	tree["parameters/conditions/dodge"] = true

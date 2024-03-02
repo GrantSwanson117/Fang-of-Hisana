@@ -494,12 +494,13 @@ height = 22.0
 
 [node name="Fang" type="CharacterBody2D" groups=["player"]]
 self_modulate = Color(0, 0, 0, 1)
+collision_layer = 17
 script = ExtResource("1_ukpw8")
 fireballSpeed = 1000
 busy = true
 minDamage = 15
 maxDamage = 30
-health = 20
+maxHealth = 200
 baseSpeed = 150
 
 [node name="Shadow" type="Sprite2D" parent="."]
@@ -573,6 +574,9 @@ shape = SubResource("CapsuleShape2D_lois5")
 
 [node name="CastTimer" type="Timer" parent="."]
 wait_time = 0.8
+
+[node name="DamageNumbersPosition" type="Marker2D" parent="."]
+position = Vector2(0, -22)
 
 [connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]

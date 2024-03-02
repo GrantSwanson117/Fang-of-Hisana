@@ -3,7 +3,6 @@ res://scripts/fang.gd
 res://scripts/ibex_boss.gd
 res://resources/Noise.tres
 res://resources/dissolve.tres
-res://scripts/enemy.gd
 res://scenes/dialogue.tscn
 res://scenes/dust.tscn
 res://scenes/enemy.tscn
@@ -12,10 +11,6 @@ res://scenes/fang.tscn
 res://scenes/fireball.tscn
 res://scenes/fogGate.tscn
 res://scenes/ibex_boss.tscn
-res://scripts/enemyIdle.gd
-res://scripts/enemyFollow.gd
-res://scripts/stateMachine.gd
-res://scripts/level.gd
-res://scripts/state.gd
-res://scripts/enemyAttack.gd
-res://scripts/follow.gd
+res://singletons/damageNumbers.gd
+res://scripts/enemy.gd
+res://scripts/entity.gd

@@ -1,15 +1,14 @@
 extends Entity
 
-signal MoveTrue
-signal MoveFalse
 @onready var player = get_parent().get_node("Fang")
 @onready var stateMachine = $StateMachine
 @export var meleeRange : int
+@export var attackCooldown: int
 var direction : Vector2
-var attackSwitch = false
 var canMove = true
 var spawn = true
 var elapsed_time = 0
+
 
 func _ready():
 	health = 150
@@ -17,8 +16,9 @@ func _ready():
 	$Hurtbox/CollisionShape2D.disabled = false
 
 func _physics_process(delta):
-	direction = global_position - player.global_position
-	move_and_collide(velocity * delta)
+	if canMove:
+		direction = global_position - player.global_position
+		move_and_collide(velocity * delta)
 	#Dissolve in
 	if spawn:
 		var t : float = elapsed_time / 3
@@ -34,12 +34,11 @@ func _physics_process(delta):
 
 func die():
 	print("dead")
+	velocity = Vector2.ZERO
 	#$AnimationTree.active = false
 	stateMachine.removeStateMachine()
 	$AnimationPlayer.play("Die")
 
-func canMoveFalse(): 
-	canMove = false
-
-func canMoveTrue(): 
-	canMove = true
+func _on_hitbox_area_entered(area):
+	damage = randi_range(minDamage, maxDamage)
+	dealDamage(damage, area.get_parent())

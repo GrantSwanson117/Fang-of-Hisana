@@ -1,5 +1,8 @@
 extends Node2D
 
+signal partTwo
+signal partThree
+
 @onready var leftSpawners : Node2D = get_node("LeftSpawners")
 @onready var rightSpawners : Node2D = get_node("RightSpawners")
 @onready var Enemy = preload("res://scenes/enemy.tscn")
@@ -22,5 +25,8 @@ func spawn():
 func _on_spawn_timer_timeout():
 	spawn()
 
-func partTwo():
-	pass
+func secondPart():
+	print("part 2\nasddsaadsadsasddas\nfasdsfsfd\nfafsfsdfds")
+
+func thirdPart():
+	print("part 3")
