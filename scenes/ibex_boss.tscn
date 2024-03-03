@@ -94,7 +94,9 @@ script = ExtResource("1_78y3i")
 meleeRange = 100
 chargeSpeed = 300
 maxCharges = 4
-maxHealth = 3000
+minDamage = 1
+maxDamage = 1
+maxHealth = 200
 baseSpeed = 80
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -121,11 +123,12 @@ libraries = {
 script = ExtResource("4_vu4ix")
 
 [node name="ProgressBar" type="ProgressBar" parent="UI"]
+self_modulate = Color(1, 0, 0, 1)
 custom_minimum_size = Vector2(200, 0)
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = -1
+anchor_left = 0.34809
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 0.65191
 anchor_bottom = 1.0
 offset_left = -2.0
 offset_top = -27.0
@@ -140,11 +143,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="UI/ProgressBar"]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.430791
+anchor_top = 0.703704
+anchor_right = 0.569209
+anchor_bottom = 0.703704
 offset_left = -110.0
 offset_top = -49.0
 offset_right = 107.0
@@ -152,7 +155,7 @@ offset_bottom = -23.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("4_235uw")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "KUFUU, UNBOUND IBEX"
 metadata/_edit_use_anchors_ = true
 

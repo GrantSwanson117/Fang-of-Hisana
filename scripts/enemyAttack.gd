@@ -6,7 +6,7 @@ func enter():
 	set_physics_process(true)
 	attack()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	owner.canMove = false
 
 func attack():

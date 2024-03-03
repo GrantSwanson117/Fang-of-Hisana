@@ -11,18 +11,16 @@ signal moveFalse
 @export var maxCharges: int
 var dead : bool = false
 var elapsed_time = 0.0
+var partTwoEmitted = false
+var partThreeEmitted = false
 
 var canMove: bool = true
 var direction: Vector2
 
 func ready(): 
 	health = maxHealth
-	print(get_parent)
-	get_parent().connect("partTwo", get_node("StateMachine").secondPart)
-	get_parent().connect("partThree", get_parent().thirdPart)
 
 func _physics_process(delta):
-	#Leash
 	#canMove = false
 	direction = player.position - global_position
 	if stateMachine.currentState != stateMachine.get_node("Charge"):
@@ -38,10 +36,12 @@ func _physics_process(delta):
 		if $ChargeTimer.is_stopped(): $ChargeTimer.start($ChargeTimer.wait_time)
 	if canMove: move_and_collide(velocity * delta)
 	if stateMachine.currentState == stateMachine.get_node("Follow"): velocity = direction.normalized() * baseSpeed
-	if health <= 2 * (maxHealth / 3): 
+	if health < 2 * (maxHealth / 3) and !partTwoEmitted: 
 		owner.emit_signal("partTwo")
-	if health <= (maxHealth / 3): 
+		partTwoEmitted = true
+	if health < (maxHealth / 3) and !partThreeEmitted: 
 		owner.emit_signal("partThree")
+		partThreeEmitted = true
 
 func _process(delta):
 	#Dissolve out

@@ -1,6 +1,6 @@
 extends Node
 
-func displayNumber(value: int, position: Vector2, isCritical):
+func displayNumber(value: int, position: Vector2, isCritical: bool, isHeal: bool):
 	var number = Label.new()
 	number.global_position = position
 	number.text = str(value)
@@ -9,9 +9,11 @@ func displayNumber(value: int, position: Vector2, isCritical):
 	
 	var color = "#FFF"
 	if isCritical:
-		color = "#B22"
+		color = Color.DARK_SALMON
 	if value == 0:
 		color = "#FFF8"
+	if isHeal: 
+		color = Color.PALE_GREEN
 	number.label_settings.font_color = color
 	number.label_settings.font_size = 24
 	number.label_settings.outline_color = "#000"

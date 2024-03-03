@@ -1,10 +1,12 @@
-Marker2D
-Timer
-CollisionShape2D
 Sprite2D
+CollisionShape2D
+Area2D
+Timer
+ProgressBar
+CanvasLayer
+Marker2D
 Node2D
 Node
-Area2D
 AnimationPlayer
 AnimationTree
 CharacterBody2D
@@ -18,7 +20,5 @@ Polygon2D
 AnimatedSprite2D
 StaticBody2D
 Label
-ProgressBar
-CanvasLayer
 TileMap
 Camera2D

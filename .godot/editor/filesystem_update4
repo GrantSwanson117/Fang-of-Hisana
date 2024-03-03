@@ -11,6 +11,4 @@ res://scenes/fang.tscn
 res://scenes/fireball.tscn
 res://scenes/fogGate.tscn
 res://scenes/ibex_boss.tscn
-res://singletons/damageNumbers.gd
-res://scripts/enemy.gd
-res://scripts/entity.gd
+res://scenes/healthItem.tscn

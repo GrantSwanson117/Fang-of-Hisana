@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://q2epwjby124k"]
+[gd_scene load_steps=10 format=3 uid="uid://q2epwjby124k"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_87aug"]
 [ext_resource type="Texture2D" uid="uid://bh6qwxiosmauj" path="res://art/DesertSands.png" id="2_jj2kg"]
 [ext_resource type="PackedScene" uid="uid://vfqtbyv2di3h" path="res://scenes/ibex_boss.tscn" id="3_n2klo"]
 [ext_resource type="PackedScene" uid="uid://der1r8332tu38" path="res://scenes/fang.tscn" id="4_rjsv7"]
 [ext_resource type="PackedScene" uid="uid://d4lilitkgsutx" path="res://scenes/fogGate.tscn" id="5_ypmak"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtmf4"]
+size = Vector2(602, 324)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2eb4b"]
 texture = ExtResource("2_jj2kg")
@@ -661,7 +664,17 @@ glow_hdr_luminance_cap = 20.0
 [node name="Level" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_87aug")
+healthTime = 15
 metadata/_edit_horizontal_guides_ = []
+
+[node name="HealthField" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthField"]
+position = Vector2(82, 4)
+shape = SubResource("RectangleShape2D_vtmf4")
+debug_color = Color(0, 0.6, 0.701961, 0.133333)
 
 [node name="Kufuu, Unbound Ibex" parent="." instance=ExtResource("3_n2klo")]
 position = Vector2(75, 77)
@@ -736,3 +749,7 @@ position = Vector2(0, 118)
 position = Vector2(0, -107)
 
 [node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="HealthTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="HealthTimer" to="." method="_on_health_timer_timeout"]
