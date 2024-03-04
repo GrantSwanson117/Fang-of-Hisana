@@ -12,6 +12,7 @@ func _ready():
 	connect("hitWall", chargeEnd)
 
 func enter():
+	owner.damage += owner.chargeBonus
 	currentCharges = 0
 	charge()
 
@@ -40,6 +41,7 @@ func chargeEnd():
 	if currentCharges >= bigGuy.maxCharges:
 		await(get_tree().create_timer(1)).timeout
 		get_parent().changeState("Follow")
+		owner.damage -= owner.chargeBonus
 
 func _on_hurtbox_body_entered(body):
 	durationTimer.stop()

@@ -9,8 +9,10 @@ var canMove = true
 var spawn = true
 var elapsed_time = 0
 
-
 func _ready():
+	if $Sprite2D.material:
+		$Sprite2D.material.set_shader_parameter('dissolveFloat', 0.0)
+		$Sprite2D.material = $Sprite2D.material.duplicate()
 	health = 150
 	$AnimationPlayer.play("Spawn")
 	$Hurtbox/CollisionShape2D.disabled = false
@@ -28,15 +30,13 @@ func _physics_process(delta):
 		$Sprite2D.material.set_shader_parameter('dissolveFloat', lerpValue)
 		$Shadow.self_modulate = Color(1, 1, 1, lerp(0.0, 0.3, elapsed_time/3))
 		if lerpValue == 1.1: 
-			$Sprite2D.material.shader = null
+			$Sprite2D.material = null
 			stateMachine.changeState("Follow")
 			spawn = false
 
 func die():
-	print("dead")
 	velocity = Vector2.ZERO
 	#$AnimationTree.active = false
-	stateMachine.removeStateMachine()
 	$AnimationPlayer.play("Die")
 
 func _on_hitbox_area_entered(area):

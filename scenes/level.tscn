@@ -76,6 +76,7 @@ texture = ExtResource("2_jj2kg")
 5:0/0/probability = 0.0
 5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 5:0/0/terrains_peering_bit/right_side = 0
 5:0/0/terrains_peering_bit/bottom_right_corner = 0
 5:0/0/terrains_peering_bit/bottom_side = 0
@@ -483,6 +484,7 @@ texture = ExtResource("2_jj2kg")
 5:3/0/probability = 0.0
 5:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:3/0/physics_layer_0/angular_velocity = 0.0
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:3/0 = 0
 6:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:3/0/physics_layer_0/angular_velocity = 0.0
@@ -492,6 +494,7 @@ texture = ExtResource("2_jj2kg")
 7:3/0/probability = 0.0
 7:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:3/0/physics_layer_0/angular_velocity = 0.0
+7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:3/0/terrains_peering_bit/right_side = 0
 7:3/0/terrains_peering_bit/bottom_right_corner = 0
 7:3/0/terrains_peering_bit/bottom_side = 0
@@ -749,7 +752,9 @@ position = Vector2(0, 118)
 position = Vector2(0, -107)
 
 [node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 8.0
 
 [node name="HealthTimer" type="Timer" parent="."]
 
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="HealthTimer" to="." method="_on_health_timer_timeout"]

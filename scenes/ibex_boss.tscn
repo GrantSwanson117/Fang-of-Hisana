@@ -96,7 +96,7 @@ chargeSpeed = 300
 maxCharges = 4
 minDamage = 1
 maxDamage = 1
-maxHealth = 200
+maxHealth = 1500
 baseSpeed = 80
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

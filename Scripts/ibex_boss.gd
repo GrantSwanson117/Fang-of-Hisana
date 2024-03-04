@@ -1,6 +1,5 @@
 extends Entity
 
-signal bossDeath
 signal moveTrue
 signal moveFalse
 
@@ -9,6 +8,7 @@ signal moveFalse
 @onready var stateMachine = get_node("StateMachine")
 @export var chargeSpeed: int
 @export var maxCharges: int
+@export var chargeBonus: int = 20
 var dead : bool = false
 var elapsed_time = 0.0
 var partTwoEmitted = false
@@ -46,6 +46,7 @@ func _physics_process(delta):
 func _process(delta):
 	#Dissolve out
 	if dead:
+		owner.emit_signal("endEncounter")
 		$Sprite2D.material.shader = load("res://resources/dissolve.tres")
 		var t = elapsed_time / 3
 		t = clamp(t, 0.0, 1.0)
@@ -53,7 +54,7 @@ func _process(delta):
 		var lerpValue = lerp(1.1, 0.0, t)
 		$Sprite2D.material.set_shader_parameter('dissolveFloat', lerpValue)
 		$Shadow.self_modulate = Color(1, 1, 1, lerp(1.0, 0.0, elapsed_time/3))
-		$UI/ProgressBar/Label.self_modulate = Color(1, 1, 1, lerp(1.0, 0.0, elapsed_time/3))
+		$UI/ProgressBar.modulate = Color(1, 1, 1, lerp(1.0, 0.0, elapsed_time/3))
 		if lerpValue == 0: queue_free()
 	
 func canMoveFalse(): 

@@ -2,6 +2,7 @@ extends Node2D
 
 signal partTwo
 signal partThree
+signal endEncounter
 
 @onready var leftSpawners : Node2D = get_node("LeftSpawners")
 @onready var rightSpawners : Node2D = get_node("RightSpawners")
@@ -10,20 +11,20 @@ signal partThree
 @export var healthTime : int
 @onready var rect = $HealthField/CollisionShape2D
 var rectangleShape = RectangleShape2D.new()
-var totalEnemies: int = 0
 var size : Vector2
+var totalEnemies: int = 0
 var maxEnemyCount: int
 
 func _ready():
+	randomize()
 	var existing_shape = rect.shape
 	if rectangleShape and existing_shape is RectangleShape2D:
 		rectangleShape.extents = existing_shape.extents
 	$HealthTimer.wait_time = healthTime
 	$HealthTimer.start()
-	randomize()
-	spawn()
 	connect("partTwo", secondPart)
 	connect("partThree", thirdPart)
+	connect("endEncounter", onEndEncounter)
 
 func spawn():
 	var enemyInstance = Enemy.instantiate()
@@ -38,12 +39,13 @@ func spawn():
 func countEntities(objectName: String):
 	var count = 0
 	for child in get_children():
-		if child.is_in_group("healthItem"):
+		if child.is_in_group(objectName):
 			count+=1
 	return count
 
 func _on_spawn_timer_timeout():
-	spawn()
+	if countEntities("enemy") < maxEnemyCount:
+		spawn()
 
 func spawnHealth():
 	var random_position = Vector2(
@@ -54,14 +56,27 @@ func spawnHealth():
 	healthItemInstance.global_position = random_position
 
 func secondPart():
-	print("part 2\nasddsaadsadsasddas\nfasdsfsfd\nfafsfsdfds")
+	spawn()
+	print("Part 2 entered")
+	$SpawnTimer.wait_time = 8
+	maxEnemyCount = 6
+	$SpawnTimer.start()
+	get_node("Kufuu, Unbound Ibex").chargeSpeed += 40
 
 func thirdPart():
-	print("part 3")
+	print("part 3 entered")
+	maxEnemyCount = 10
+	$SpawnTimer.wait_time = 6
+	get_node("Kufuu, Unbound Ibex").chargeSpeed += 40
+
+func onEndEncounter():
+	for child in get_children():
+		if child.is_in_group("enemy"):
+			child.health = 0
+			$HealthTimer.stop()
 
 func _on_health_timer_timeout():
 	$HealthTimer.wait_time = randf_range(healthTime - 7, healthTime + 7)
 	$HealthTimer.start()
 	if countEntities("HealthItem") < 3:
 		spawnHealth()
-	

@@ -1,22 +1,84 @@
-[gd_scene load_steps=4 format=3 uid="uid://dym4kwl6bnl76"]
+[gd_scene load_steps=13 format=3 uid="uid://dym4kwl6bnl76"]
 
 [ext_resource type="Script" path="res://scripts/healthItem.gd" id="1_xvxes"]
-[ext_resource type="Texture2D" uid="uid://ds1bwu2mibiqf" path="res://art/icon.png" id="2_sykbn"]
+[ext_resource type="Texture2D" uid="uid://bxc4sn0hom0md" path="res://art/healthItem.png" id="2_3dhx7"]
+[ext_resource type="Texture2D" uid="uid://cvi18gl88upla" path="res://art/plus.png" id="2_wg3lo"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qg0cp"]
+
+[sub_resource type="Gradient" id="Gradient_wjevv"]
+offsets = PackedFloat32Array(0, 0.567901, 1)
+colors = PackedColorArray(1, 0.705882, 0.827451, 0.596078, 1, 1, 1, 0.596078, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sqths"]
+gradient = SubResource("Gradient_wjevv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a5n1v"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = -10.0
+initial_velocity_max = -10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_min = 10.0
+linear_accel_max = 15.0
+color_ramp = SubResource("GradientTexture1D_sqths")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y7cd2"]
 radius = 19.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yox2"]
+atlas = ExtResource("2_3dhx7")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le4jw"]
+atlas = ExtResource("2_3dhx7")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdwjp"]
+atlas = ExtResource("2_3dhx7")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c4ido"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5yox2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le4jw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vdwjp")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 10.0
+}]
 
 [node name="HealthItem" type="Area2D" groups=["healthItem"]]
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("1_xvxes")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_qg0cp")
+amount = 2
+process_material = SubResource("ParticleProcessMaterial_a5n1v")
+texture = ExtResource("2_wg3lo")
+lifetime = 1.5
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_y7cd2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-self_modulate = Color(1, 0, 0, 1)
-scale = Vector2(0.53125, 0.53125)
-texture = ExtResource("2_sykbn")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_c4ido")
+animation = &"spin"
+autoplay = "spin"
+frame_progress = 0.409662
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

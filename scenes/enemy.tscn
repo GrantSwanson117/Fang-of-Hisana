@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://scripts/enemyIdle.gd" id="7_xyy5p"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="9_e2caq"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_315bj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tyv4d"]
 shader = ExtResource("2_xfbkd")
 shader_parameter/dissolveFloat = 1.0
 
@@ -319,11 +319,11 @@ maxDamage = 20
 baseSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_315bj")
+material = SubResource("ShaderMaterial_tyv4d")
 texture = ExtResource("1_wltis")
 hframes = 13
 vframes = 5
-frame = 9
+frame = 41
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_3b7h4")
