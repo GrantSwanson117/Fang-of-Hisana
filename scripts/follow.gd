@@ -11,6 +11,7 @@ func _physics_process(_delta):
 	else: owner.get_node("Sprite2D").flip_h = false
 
 func enter():
+	owner.get_node("Hitbox/CollisionPolygon2D").set_deferred("disabled", true)
 	owner.baseSpeed = 80
 	bigGuy.emit_signal("moveTrue")
 	owner.get_node("ChargeTimer").start()

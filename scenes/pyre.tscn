@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8oh3xq3ticc8"]
+
+[ext_resource type="Script" path="res://scripts/pyre.gd" id="1_sy3x2"]
+[ext_resource type="Texture2D" uid="uid://d21rdjd4rqbac" path="res://art/pyre-Sheet.png" id="2_jwjpr"]
+
+[sub_resource type="Animation" id="Animation_r4xgf"]
+resource_name = "Erupt"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0989786, 0.2, 0.298979, 0.4, 0.498979, 0.6, 0.698979, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 1, 0, 1, 0, 1, 2, 3, 4, 5, 4, 5, 4, 5, 4, 5, 6, 1]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8, 1.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cbg3f"]
+_data = {
+"Erupt": SubResource("Animation_r4xgf")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ok4v"]
+
+[node name="Pyre" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 4
+script = ExtResource("1_sy3x2")
+minDamage = 35
+maxDamage = 50
+maxHealth = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -63)
+texture = ExtResource("2_jwjpr")
+hframes = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Erupt"
+libraries = {
+"": SubResource("AnimationLibrary_cbg3f")
+}
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -7)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_1ok4v")
+disabled = true
+
+[node name="DamageNumbersPosition" type="Marker2D" parent="."]
+position = Vector2(0, -12)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

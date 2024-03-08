@@ -8,6 +8,7 @@ var direction : Vector2
 var canMove = true
 var spawn = true
 var elapsed_time = 0
+var dead: bool = false
 
 func _ready():
 	if $Sprite2D.material:
@@ -16,6 +17,7 @@ func _ready():
 	health = 150
 	$AnimationPlayer.play("Spawn")
 	$Hurtbox/CollisionShape2D.disabled = false
+	stateMachineActive = true
 
 func _physics_process(delta):
 	if canMove:
@@ -35,9 +37,13 @@ func _physics_process(delta):
 			spawn = false
 
 func die():
-	velocity = Vector2.ZERO
-	#$AnimationTree.active = false
-	$AnimationPlayer.play("Die")
+	if !dead:
+		#stateMachine.removeStateMachine()
+		$AnimationPlayer.play("Die")
+		get_node("SFX/DeathSFX").play()
+		velocity = Vector2.ZERO
+		#stateMachineActive = false
+		dead = true
 
 func _on_hitbox_area_entered(area):
 	damage = randi_range(minDamage, maxDamage)

@@ -8,9 +8,10 @@ func _ready():
 	for child in get_children():
 		child.set_physics_process(false)
 	changeState("Idle")
+	owner.stateMachineActive = false
 
 func changeState(newState):
-	if currentState != get_node(newState): 
+	if currentState != get_node(newState) and owner.stateMachineActive: 
 		prevState = currentState
 		currentState = get_node(newState)
 		currentState.enter()
@@ -20,5 +21,4 @@ func changeState(newState):
 func removeStateMachine():
 	for child in get_children():
 		child.exit()
-		child.queue_free()
 	queue_free()

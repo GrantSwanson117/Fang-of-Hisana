@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://vfqtbyv2di3h"]
+[gd_scene load_steps=26 format=3 uid="uid://vfqtbyv2di3h"]
 
 [ext_resource type="Script" path="res://scripts/ibex_boss.gd" id="1_78y3i"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="2_e6rpe"]
@@ -7,11 +7,14 @@
 [ext_resource type="Script" path="res://scripts/stateMachine.gd" id="7_0d00o"]
 [ext_resource type="Script" path="res://scripts/attack.gd" id="8_2b6r1"]
 [ext_resource type="FontFile" uid="uid://v2dunwyf5lmj" path="res://fonts/VeniceClassic.ttf" id="8_m7tmp"]
-[ext_resource type="Texture2D" uid="uid://ds1bwu2mibiqf" path="res://art/icon.png" id="9_a7qbt"]
 [ext_resource type="Script" path="res://scripts/follow.gd" id="9_ffwve"]
 [ext_resource type="Script" path="res://scripts/idle.gd" id="10_q7i2u"]
 [ext_resource type="Texture2D" uid="uid://i6u7nlkved7f" path="res://art/Ibex_charge.PNG" id="11_ms6wn"]
 [ext_resource type="Script" path="res://scripts/charge.gd" id="12_3mqhp"]
+[ext_resource type="Script" path="res://scripts/enrage.gd" id="12_ndy01"]
+[ext_resource type="AudioStream" uid="uid://c4mjpnugk11a6" path="res://sfx/RockSmash.wav" id="13_pkfb0"]
+[ext_resource type="AudioStream" uid="uid://bovjql537pewj" path="res://sfx/Hit.wav" id="14_rtmbp"]
+[ext_resource type="AudioStream" uid="uid://c36vscn8xn5gh" path="res://sfx/gallop.wav" id="15_cmsj6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sgwrc"]
 
@@ -65,6 +68,21 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_vcakv"]
+resource_name = "EnrageStomp"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
 [sub_resource type="Animation" id="Animation_c0t4k"]
 resource_name = "Idle"
 
@@ -73,6 +91,7 @@ _data = {
 "Attack": SubResource("Animation_y8e7a"),
 "Charge": SubResource("Animation_ibh4d"),
 "Die": SubResource("Animation_5k3ky"),
+"EnrageStomp": SubResource("Animation_vcakv"),
 "Idle": SubResource("Animation_c0t4k")
 }
 
@@ -91,12 +110,11 @@ z_index = 1
 position = Vector2(597, 540)
 collision_mask = 5
 script = ExtResource("1_78y3i")
-meleeRange = 100
+meleeRange = 60
 chargeSpeed = 300
-maxCharges = 4
 minDamage = 1
 maxDamage = 1
-maxHealth = 1500
+maxHealth = 100
 baseSpeed = 80
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -105,7 +123,7 @@ position = Vector2(-1, -26)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("11_ms6wn")
 hframes = 6
-frame = 5
+frame = 1
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.3)
@@ -120,6 +138,7 @@ libraries = {
 }
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("4_vu4ix")
 
 [node name="ProgressBar" type="ProgressBar" parent="UI"]
@@ -180,21 +199,17 @@ position = Vector2(-0.266846, 0.945068)
 collision_layer = 2
 collision_mask = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="Hitbox"]
-visible = false
-modulate = Color(1, 0, 0, 0.211765)
-position = Vector2(68.1239, -0.585022)
-scale = Vector2(1.37053, 1.48)
-texture = ExtResource("9_a7qbt")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(69.3461, -1.36292)
 shape = SubResource("RectangleShape2D_jxu7n")
 one_way_collision_margin = 0.0
 debug_color = Color(0.992157, 0, 0.266667, 0.419608)
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+position = Vector2(14.2669, -0.945068)
+polygon = PackedVector2Array(75, 1, 0, 46, 0, -46)
+
 [node name="debug" type="Label" parent="."]
-visible = false
 anchors_preset = -1
 anchor_top = -0.0123457
 anchor_right = 0.0199653
@@ -225,8 +240,11 @@ script = ExtResource("10_q7i2u")
 [node name="Charge" type="Node2D" parent="StateMachine"]
 script = ExtResource("12_3mqhp")
 
+[node name="Enrage" type="Node2D" parent="StateMachine"]
+script = ExtResource("12_ndy01")
+
 [node name="ChargeTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.5
 one_shot = true
 
 [node name="ChargeDurationTimer" type="Timer" parent="."]
@@ -236,7 +254,24 @@ one_shot = true
 [node name="DamageNumbersPosition" type="Marker2D" parent="."]
 position = Vector2(0, -51)
 
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="SlamSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("13_pkfb0")
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("14_rtmbp")
+volume_db = -6.0
+
+[node name="GallopSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("15_cmsj6")
+volume_db = 11.619
+
+[node name="EruptionTimer" type="Timer" parent="."]
+wait_time = 1.5
+
 [connection signal="body_entered" from="Hurtbox" to="StateMachine/Charge" method="_on_hurtbox_body_entered"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="ChargeTimer" to="." method="_on_charge_timer_timeout"]
 [connection signal="timeout" from="ChargeDurationTimer" to="StateMachine/Charge" method="_on_charge_duration_timer_timeout"]
+[connection signal="timeout" from="EruptionTimer" to="StateMachine/Enrage" method="_on_eruption_timer_timeout"]

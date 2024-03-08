@@ -3,11 +3,14 @@ extends Node2D
 signal partTwo
 signal partThree
 signal endEncounter
+signal startEncounter
+signal spawnEruptions
 
 @onready var leftSpawners : Node2D = get_node("LeftSpawners")
 @onready var rightSpawners : Node2D = get_node("RightSpawners")
 @onready var Enemy = preload("res://scenes/enemy.tscn")
 @onready var HealthItem = preload("res://scenes/healthItem.tscn")
+@onready var Pyre = preload("res://scenes/pyre.tscn")
 @export var healthTime : int
 @onready var rect = $HealthField/CollisionShape2D
 var rectangleShape = RectangleShape2D.new()
@@ -17,16 +20,18 @@ var maxEnemyCount: int
 
 func _ready():
 	randomize()
+	$SpawnTimer.wait_time = 1
 	var existing_shape = rect.shape
 	if rectangleShape and existing_shape is RectangleShape2D:
 		rectangleShape.extents = existing_shape.extents
-	$HealthTimer.wait_time = healthTime
-	$HealthTimer.start()
 	connect("partTwo", secondPart)
 	connect("partThree", thirdPart)
+	connect("startEncounter", onStartEncounter)
 	connect("endEncounter", onEndEncounter)
+	connect("spawnEruptions", spawnPyres)
 
 func spawn():
+	$SFX/EnemySpawnSFX.play()
 	var enemyInstance = Enemy.instantiate()
 	var enemyInstance2 = Enemy.instantiate()
 	var randomRight = randi_range(0,rightSpawners.get_child_count()-1)
@@ -55,28 +60,65 @@ func spawnHealth():
 	add_child(healthItemInstance)
 	healthItemInstance.global_position = random_position
 
+func spawnPyres():
+	$SFX/PyreSFX.play()
+	var min_distance = 30
+	var positions = []
+	
+	for i in range(80):
+		var random_position = Vector2()
+		var positionValid = false
+		while !positionValid:
+			random_position = Vector2(
+				randf_range(-rectangleShape.extents.x, rectangleShape.extents.x + 80),
+				randf_range(-rectangleShape.extents.y, rectangleShape.extents.y))
+			positionValid = true
+			for existing_position in positions:
+				if random_position.distance_to(existing_position) < min_distance:
+					positionValid = false
+		if positionValid:
+			var pyreInstance = Pyre.instantiate()
+			add_child(pyreInstance)
+			pyreInstance.global_position = random_position
+			positions.append(random_position)
+
 func secondPart():
+	get_node("Kufuu, Unbound Ibex/StateMachine").changeState("Enrage")
 	spawn()
 	print("Part 2 entered")
-	$SpawnTimer.wait_time = 8
+	$SpawnTimer.wait_time = 12
 	maxEnemyCount = 6
 	$SpawnTimer.start()
 	get_node("Kufuu, Unbound Ibex").chargeSpeed += 40
+	get_node("Kufuu, Unbound Ibex").maxCharges += 1
 
 func thirdPart():
 	print("part 3 entered")
 	maxEnemyCount = 10
-	$SpawnTimer.wait_time = 6
+	$SpawnTimer.wait_time -= 3
 	get_node("Kufuu, Unbound Ibex").chargeSpeed += 40
 
+func onStartEncounter():
+	if get_node("Kufuu, Unbound Ibex").has_method("startFight"):
+		get_node("Kufuu, Unbound Ibex").startFight()
+	$HealthTimer.wait_time = healthTime
+	$HealthTimer.start()
+	
 func onEndEncounter():
+	$HealthTimer.stop()
+	$SpawnTimer.stop()
 	for child in get_children():
 		if child.is_in_group("enemy"):
-			child.health = 0
-			$HealthTimer.stop()
+			if child.get_node("AnimationPlayer").current_animation != "Spawn":
+				child.stateMachineActive = false
+				child.die()
+	for child in get_children():
+		if child.is_in_group("enemy"):
+			child.stateMachineActive = false
+			child.die()
 
 func _on_health_timer_timeout():
 	$HealthTimer.wait_time = randf_range(healthTime - 7, healthTime + 7)
 	$HealthTimer.start()
-	if countEntities("HealthItem") < 3:
+	if countEntities("healthItem") < 3:
 		spawnHealth()

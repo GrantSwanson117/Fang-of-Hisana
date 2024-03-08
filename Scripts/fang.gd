@@ -43,12 +43,15 @@ func _physics_process(delta):
 		dodge(input_vector)
 	
 	if Input.is_action_just_pressed("fireball") and canAction and canCast and magic > 30:
+		$SFX/FireballSFX.play()
 		shootFireball((get_global_mouse_position() - global_position).normalized())
 		magic -= 10
 		await(get_tree().create_timer(0.13)).timeout
+		$SFX/FireballSFX2.play()
 		shootFireball((get_global_mouse_position() - global_position).normalized().rotated(deg_to_rad(-8)))
 		magic -= 10
 		await(get_tree().create_timer(0.13)).timeout
+		$SFX/FireballSFX3.play()
 		shootFireball((get_global_mouse_position() - global_position).normalized().rotated(deg_to_rad(8)))
 		magic -= 10
 		$CastTimer.start()
@@ -61,6 +64,7 @@ func _physics_process(delta):
 		tree["parameters/conditions/idle"] = false
 
 func dodge(direction):
+	$SFX/DodgeSFX.play()
 	speed = 300
 	tree["parameters/conditions/dodge"] = true
 	velocity = speed * direction

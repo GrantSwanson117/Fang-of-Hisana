@@ -23,5 +23,4 @@ func attackEnd():
 	else:
 		await(get_tree().create_timer(owner.attackCooldown)).timeout
 		attackSwitch = !attackSwitch
-		print(attackSwitch)
 		attack()

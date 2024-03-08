@@ -7,7 +7,7 @@ signal moveFalse
 @export var meleeRange : int
 @onready var stateMachine = get_node("StateMachine")
 @export var chargeSpeed: int
-@export var maxCharges: int
+@export var maxCharges: int = 3
 @export var chargeBonus: int = 20
 var dead : bool = false
 var elapsed_time = 0.0
@@ -28,14 +28,15 @@ func _physics_process(delta):
 		if direction.x > 0: $Sprite2D.flip_h = true
 		else: $Sprite2D.flip_h = false
 	
-	if direction.length() < meleeRange and stateMachine.currentState != get_node("StateMachine/Charge"):
+	if direction.length() < meleeRange and stateMachine.currentState == get_node("StateMachine/Follow"):
 		stateMachine.changeState("Attack")
 		$ChargeTimer.stop()
-	if direction.length() > meleeRange and stateMachine.currentState != get_node("StateMachine/Charge"):
+	if direction.length() > meleeRange + 20 and stateMachine.currentState == get_node("StateMachine/Attack"):
 		stateMachine.changeState("Follow")
 		if $ChargeTimer.is_stopped(): $ChargeTimer.start($ChargeTimer.wait_time)
 	if canMove: move_and_collide(velocity * delta)
 	if stateMachine.currentState == stateMachine.get_node("Follow"): velocity = direction.normalized() * baseSpeed
+	
 	if health < 2 * (maxHealth / 3) and !partTwoEmitted: 
 		owner.emit_signal("partTwo")
 		partTwoEmitted = true
@@ -47,6 +48,7 @@ func _process(delta):
 	#Dissolve out
 	if dead:
 		owner.emit_signal("endEncounter")
+		stateMachineActive = false
 		$Sprite2D.material.shader = load("res://resources/dissolve.tres")
 		var t = elapsed_time / 3
 		t = clamp(t, 0.0, 1.0)
@@ -63,11 +65,14 @@ func canMoveFalse():
 func canMoveTrue(): 
 	canMove = true
 	
-func startEncounter():
+func startFight():
+	stateMachineActive = true
 	stateMachine.changeState("Follow")
+	$UI.visible = true
 
 func die():
 	dead = true
+	stateMachine.currentState.exit()
 	$AnimationPlayer.play("Die")
 	set_physics_process(false)
 

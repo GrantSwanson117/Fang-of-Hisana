@@ -1,9 +1,14 @@
-[gd_scene load_steps=50 format=3 uid="uid://der1r8332tu38"]
+[gd_scene load_steps=55 format=3 uid="uid://der1r8332tu38"]
 
 [ext_resource type="Script" path="res://scripts/fang.gd" id="1_ukpw8"]
 [ext_resource type="Texture2D" uid="uid://c50uuxgh22pnb" path="res://art/fang.png" id="2_feavh"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="2_k7utr"]
 [ext_resource type="Script" path="res://scripts/Camera2D.gd" id="4_dajxu"]
+[ext_resource type="AudioStream" uid="uid://7ajvf07illvm" path="res://sfx/swipe.wav" id="5_321dn"]
+[ext_resource type="AudioStream" uid="uid://bovjql537pewj" path="res://sfx/Hit.wav" id="6_yu18u"]
+[ext_resource type="AudioStream" uid="uid://bbj3ltxle26jf" path="res://sfx/healSFX.mp3" id="7_tmb34"]
+[ext_resource type="AudioStream" uid="uid://ba5soh2me8hfp" path="res://sfx/fireball.wav" id="8_mg8vw"]
+[ext_resource type="AudioStream" uid="uid://deybrw6jydf6f" path="res://sfx/dodge.wav" id="9_yc3xp"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kxv0q"]
 animation = &"Attack 1"
@@ -143,7 +148,7 @@ states/Start/position = Vector2(179, 89)
 states/Transition/node = SubResource("AnimationNodeAnimation_siqnc")
 states/Transition/position = Vector2(683.803, -71.2482)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1qu23"), "Run", "Transition", SubResource("AnimationNodeStateMachineTransition_lgfjl"), "Transition", "Idle", SubResource("AnimationNodeStateMachineTransition_e67vk"), "Dodge", "Idle", SubResource("AnimationNodeStateMachineTransition_tva6x"), "Idle", "Dodge", SubResource("AnimationNodeStateMachineTransition_3xnsc"), "Dodge", "Run", SubResource("AnimationNodeStateMachineTransition_s213k"), "Run", "Dodge", SubResource("AnimationNodeStateMachineTransition_5ykr8"), "Idle", "Transition", SubResource("AnimationNodeStateMachineTransition_x440n"), "Transition", "Run", SubResource("AnimationNodeStateMachineTransition_04kr3"), "Attack 1", "Attack 2", SubResource("AnimationNodeStateMachineTransition_838e2"), "Attack 2", "Attack 1", SubResource("AnimationNodeStateMachineTransition_odhe5"), "Idle", "Attack 1", SubResource("AnimationNodeStateMachineTransition_ap7nq"), "Run", "Attack 2", SubResource("AnimationNodeStateMachineTransition_a85f3"), "Idle", "Attack 2", SubResource("AnimationNodeStateMachineTransition_fys2x"), "Run", "Attack 1", SubResource("AnimationNodeStateMachineTransition_lm1h8"), "Attack 1", "Idle", SubResource("AnimationNodeStateMachineTransition_3h6pr"), "Attack 2", "Run", SubResource("AnimationNodeStateMachineTransition_8a11x"), "Attack 2", "Idle", SubResource("AnimationNodeStateMachineTransition_8pw71"), "Attack 1", "Run", SubResource("AnimationNodeStateMachineTransition_rg1yn"), "Magic", "Idle", SubResource("AnimationNodeStateMachineTransition_c4q3r"), "Idle", "Magic", SubResource("AnimationNodeStateMachineTransition_kwh86"), "Magic", "Run", SubResource("AnimationNodeStateMachineTransition_hmwb0"), "Run", "Magic", SubResource("AnimationNodeStateMachineTransition_y0okn")]
-graph_offset = Vector2(-62.197, -155.248)
+graph_offset = Vector2(-149.197, -144.248)
 
 [sub_resource type="Animation" id="Animation_6r4bq"]
 resource_name = "Attack 1"
@@ -197,6 +202,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SFX/Attack1SFX:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_vyw7i"]
 resource_name = "Attack 2"
@@ -249,6 +266,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SFX/Attack2SFX:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_5d0qa"]
@@ -494,7 +523,8 @@ height = 22.0
 
 [node name="Fang" type="CharacterBody2D" groups=["player"]]
 self_modulate = Color(0, 0, 0, 1)
-collision_layer = 17
+position = Vector2(0, 1)
+collision_layer = 16
 script = ExtResource("1_ukpw8")
 fireballSpeed = 1000
 maxMagic = 100
@@ -599,6 +629,40 @@ wait_time = 0.8
 
 [node name="DamageNumbersPosition" type="Marker2D" parent="."]
 position = Vector2(0, -22)
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="Attack1SFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("5_321dn")
+volume_db = -4.0
+
+[node name="Attack2SFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("5_321dn")
+volume_db = -7.059
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("6_yu18u")
+volume_db = -8.0
+
+[node name="PickupSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("7_tmb34")
+volume_db = -4.0
+
+[node name="FireballSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("8_mg8vw")
+volume_db = -12.0
+
+[node name="FireballSFX2" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("8_mg8vw")
+volume_db = -9.0
+
+[node name="FireballSFX3" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("8_mg8vw")
+volume_db = -6.0
+
+[node name="DodgeSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("9_yc3xp")
+volume_db = 4.0
 
 [connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]

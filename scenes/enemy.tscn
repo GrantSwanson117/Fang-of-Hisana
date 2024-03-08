@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dn3206o0fl6x1"]
+[gd_scene load_steps=42 format=3 uid="uid://dn3206o0fl6x1"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_exx0r"]
 [ext_resource type="Texture2D" uid="uid://bwi5gokl33g6e" path="res://art/Skeleton enemy.png" id="1_wltis"]
@@ -9,6 +9,8 @@
 [ext_resource type="FontFile" uid="uid://v2dunwyf5lmj" path="res://fonts/VeniceClassic.ttf" id="6_5h08a"]
 [ext_resource type="Script" path="res://scripts/enemyIdle.gd" id="7_xyy5p"]
 [ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="9_e2caq"]
+[ext_resource type="AudioStream" uid="uid://bovjql537pewj" path="res://sfx/Hit.wav" id="10_8uuft"]
+[ext_resource type="AudioStream" uid="uid://d333laa616y73" path="res://sfx/enemyDeath.wav" id="11_ftenr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tyv4d"]
 shader = ExtResource("2_xfbkd")
@@ -85,7 +87,7 @@ states/Start/position = Vector2(329, 108)
 states/Walk/node = SubResource("AnimationNodeAnimation_e18we")
 states/Walk/position = Vector2(322, -51)
 transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_opmta"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_6rw2e"), "Attack1", "Attack2", SubResource("AnimationNodeStateMachineTransition_l85sp"), "Attack2", "Attack1", SubResource("AnimationNodeStateMachineTransition_c8uta"), "Walk", "Attack1", SubResource("AnimationNodeStateMachineTransition_fg0kt"), "Attack1", "Walk", SubResource("AnimationNodeStateMachineTransition_wekf8"), "Attack1", "Idle", SubResource("AnimationNodeStateMachineTransition_rihab"), "Idle", "Attack1", SubResource("AnimationNodeStateMachineTransition_flc4c"), "Attack2", "Walk", SubResource("AnimationNodeStateMachineTransition_r846r"), "Walk", "Attack2", SubResource("AnimationNodeStateMachineTransition_2sfj3"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_428ra"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_36jxv"), "Idle", "Attack2", SubResource("AnimationNodeStateMachineTransition_yl4ex"), "Attack2", "Idle", SubResource("AnimationNodeStateMachineTransition_dw8t0")]
-graph_offset = Vector2(-120, -275)
+graph_offset = Vector2(-100, -291)
 
 [sub_resource type="Animation" id="Animation_xxhue"]
 resource_name = "Attack1"
@@ -301,8 +303,7 @@ radius = 8.0
 height = 32.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2qs61"]
-radius = 11.0
-height = 26.0
+radius = 13.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a43yd"]
 radius = 4.0
@@ -323,7 +324,6 @@ material = SubResource("ShaderMaterial_tyv4d")
 texture = ExtResource("1_wltis")
 hframes = 13
 vframes = 5
-frame = 41
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_3b7h4")
@@ -348,7 +348,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(19, 1)
+position = Vector2(21, 1)
 shape = SubResource("CapsuleShape2D_2qs61")
 disabled = true
 debug_color = Color(0.996078, 0, 0.184314, 0.32549)
@@ -396,5 +396,15 @@ shape = SubResource("CapsuleShape2D_a43yd")
 
 [node name="DamageNumbersPosition" type="Marker2D" parent="."]
 position = Vector2(0, -31)
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="HitSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("10_8uuft")
+volume_db = -8.0
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("11_ftenr")
+volume_db = -10.0
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

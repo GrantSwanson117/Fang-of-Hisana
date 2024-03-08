@@ -3,7 +3,8 @@ extends Area2D
 var healthAmount: int = 20
 var time = 0
 
-func _ready(): $AnimatedSprite2D.self_modulate.a = 0
+func _ready(): 
+	$AnimatedSprite2D.self_modulate.a = 0
 
 func _physics_process(delta):
 	if time < 2:

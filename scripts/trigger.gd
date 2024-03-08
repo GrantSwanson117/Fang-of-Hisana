@@ -28,4 +28,4 @@ func _on_body_exited(_body):
 		$AnimationPlayer.play("Fade in")
 		$Barrier.collision_mask = 2
 		$Barrier.collision_layer = 1
-		if target.has_method("startEncounter"): target.startEncounter()
+		owner.emit_signal("startEncounter")

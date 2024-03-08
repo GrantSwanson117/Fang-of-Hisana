@@ -12,6 +12,8 @@ func _ready():
 	connect("hitWall", chargeEnd)
 
 func enter():
+	owner.get_node("Hitbox/CollisionPolygon2D").disabled = false
+	owner.get_node("Hitbox/CollisionShape2D").disabled = true
 	owner.damage += owner.chargeBonus
 	currentCharges = 0
 	charge()
@@ -22,6 +24,7 @@ func _physics_process(_delta):
 	if owner.velocity == Vector2.ZERO: chargeEnd()
 
 func charge():
+	owner.get_node("SFX/GallopSFX").play()
 	bigGuy.get_node("Hitbox").look_at(player.global_position)
 	bigGuy.baseSpeed = bigGuy.chargeSpeed
 	bigGuy.velocity = bigGuy.direction.normalized() * bigGuy.chargeSpeed
@@ -30,6 +33,7 @@ func charge():
 	durationTimer.start()
 
 func chargeEnd():
+	owner.get_node("SFX/GallopSFX").playing = false
 	durationTimer.stop()
 	print("current charges: ",currentCharges)
 	camera.shake(0.2, 2)
@@ -46,10 +50,7 @@ func chargeEnd():
 func _on_hurtbox_body_entered(body):
 	durationTimer.stop()
 	if body.is_in_group("world"):
-		var push_direction = -bigGuy.direction.normalized()
-		var push_strength = 10.0
-		var push_velocity = -push_direction * push_strength
-		bigGuy.velocity += push_velocity
+		owner.get_node("SFX/SlamSFX").play()
 		chargeEnd()
 
 func _on_charge_duration_timer_timeout():
