@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://q2epwjby124k"]
+[gd_scene load_steps=23 format=3 uid="uid://q2epwjby124k"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_87aug"]
 [ext_resource type="Texture2D" uid="uid://bh6qwxiosmauj" path="res://art/DesertSands.png" id="2_jj2kg"]
@@ -8,7 +8,9 @@
 [ext_resource type="AudioStream" uid="uid://x40rwq02vb66" path="res://sfx/enemySpawn.wav" id="8_7x2y6"]
 [ext_resource type="AudioStream" uid="uid://cth5kfkq5gv4v" path="res://sfx/pyre.wav" id="8_ocgrp"]
 [ext_resource type="AudioStream" uid="uid://c36vscn8xn5gh" path="res://sfx/gallop.wav" id="9_gonga"]
+[ext_resource type="AudioStream" uid="uid://b2j5qv8icmla4" path="res://sfx/drums.wav" id="9_xqlpa"]
 [ext_resource type="Texture2D" uid="uid://dw0pxpvsppauf" path="res://art/campfireGif-ezgif.com-gif-to-sprite-converter.png" id="10_t7we5"]
+[ext_resource type="PackedScene" uid="uid://dvjajnxypv7ti" path="res://scenes/keeper.tscn" id="11_auqtx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vtmf4"]
 size = Vector2(602, 324)
@@ -708,6 +710,9 @@ animations = [{
 radius = 21.0
 height = 122.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nencu"]
+size = Vector2(114, 44)
+
 [node name="Level" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_87aug")
@@ -771,7 +776,7 @@ triggerGate = true
 
 [node name="Fang" parent="." instance=ExtResource("4_rjsv7")]
 z_as_relative = false
-position = Vector2(71, 247)
+position = Vector2(247, 715)
 rotation = 3.14159
 scale = Vector2(1, -1)
 collision_layer = 2
@@ -824,19 +829,39 @@ position = Vector2(66, 828)
 scale = Vector2(0.3, 0.3)
 stream = ExtResource("8_ocgrp")
 
-[node name="Campfire" type="StaticBody2D" parent="."]
+[node name="PyreSFX2" type="AudioStreamPlayer2D" parent="SFX"]
 position = Vector2(66, 828)
+scale = Vector2(0.3, 0.3)
+stream = ExtResource("8_ocgrp")
+
+[node name="DrumsSFX" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("9_xqlpa")
+volume_db = 14.0
+
+[node name="Campfire" type="StaticBody2D" parent="."]
+position = Vector2(21, 828)
 scale = Vector2(0.3, 0.3)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Campfire"]
+position = Vector2(0, -13.3335)
 sprite_frames = SubResource("SpriteFrames_4qjmt")
 autoplay = "default"
-frame_progress = 0.201267
+frame_progress = 0.0499183
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Campfire"]
 position = Vector2(2, 34)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_gt1gf")
 
+[node name="LevelEnd" type="Area2D" parent="."]
+position = Vector2(73, -557)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelEnd"]
+shape = SubResource("RectangleShape2D_nencu")
+
+[node name="Keeper" parent="." instance=ExtResource("11_auqtx")]
+position = Vector2(17, 646)
+
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="HealthTimer" to="." method="_on_health_timer_timeout"]
+[connection signal="finished" from="SFX/DrumsSFX" to="." method="_on_drums_sfx_finished"]

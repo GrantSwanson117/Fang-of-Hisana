@@ -41,7 +41,6 @@ region = Rect2(3.15884, 4.70142, 3.64853, 4.59444)
 
 [node name="DustParticle" type="GPUParticles2D"]
 self_modulate = Color(0.666667, 0.00392157, 0.988235, 0.407843)
-emitting = false
 amount = 12
 process_material = SubResource("ParticleProcessMaterial_g6iso")
 texture = SubResource("AtlasTexture_pnf7x")

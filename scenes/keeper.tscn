@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvjajnxypv7ti"]
+
+[ext_resource type="Script" path="res://scripts/keeper.gd" id="1_vbtfs"]
+[ext_resource type="Texture2D" uid="uid://btpeu3pmi1g8x" path="res://art/shadow.png" id="2_kq15e"]
+[ext_resource type="Texture2D" uid="uid://paneb3fapqjn" path="res://art/keeper.png" id="2_weggo"]
+[ext_resource type="FontFile" uid="uid://v2dunwyf5lmj" path="res://fonts/VeniceClassic.ttf" id="4_cejxt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgehc"]
+atlas = ExtResource("2_weggo")
+region = Rect2(0, 0, 34, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3b0a"]
+atlas = ExtResource("2_weggo")
+region = Rect2(34, 0, 34, 52)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_voyfh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgehc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3b0a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i0axo"]
+radius = 41.0122
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s2waj"]
+radius = 6.0
+height = 20.0
+
+[node name="Keeper" type="CharacterBody2D" groups=["friendly"]]
+position = Vector2(-6, 837)
+script = ExtResource("1_vbtfs")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.3)
+position = Vector2(-5, 24)
+texture = ExtResource("2_kq15e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_voyfh")
+autoplay = "default"
+frame_progress = 0.551918
+
+[node name="Area2D" type="Area2D" parent="." groups=["friendly"]]
+position = Vector2(38, 16)
+collision_layer = 7
+collision_mask = 23
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-8, -6)
+shape = SubResource("CircleShape2D_i0axo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 21)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_s2waj")
+
+[node name="DialoguePosition" type="Marker2D" parent="."]
+position = Vector2(-1, -41)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -44.0
+offset_top = 35.0
+offset_right = 36.0
+offset_bottom = 55.0
+theme_override_fonts/font = ExtResource("4_cejxt")
+text = "Press SPACE"
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

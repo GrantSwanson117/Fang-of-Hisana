@@ -39,4 +39,3 @@ func heal(amount: int):
 	health += amount
 	DamageNumbers.displayNumber(amount, numberOrigin.global_position, false, true)
 	get_node("SFX/PickupSFX").play()
-

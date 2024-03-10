@@ -51,8 +51,11 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ok4v"]
+radius = 7.0
+height = 26.0
 
 [node name="Pyre" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 3
 collision_mask = 4
 script = ExtResource("1_sy3x2")
@@ -64,6 +67,7 @@ maxHealth = 1
 position = Vector2(0, -63)
 texture = ExtResource("2_jwjpr")
 hframes = 7
+frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Erupt"
@@ -76,7 +80,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, -7)
+position = Vector2(0, -6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_1ok4v")
 disabled = true

@@ -12,6 +12,7 @@ signal spawnEruptions
 @onready var HealthItem = preload("res://scenes/healthItem.tscn")
 @onready var Pyre = preload("res://scenes/pyre.tscn")
 @export var healthTime : int
+var sfxSwitch = false
 @onready var rect = $HealthField/CollisionShape2D
 var rectangleShape = RectangleShape2D.new()
 var size : Vector2
@@ -19,6 +20,7 @@ var totalEnemies: int = 0
 var maxEnemyCount: int
 
 func _ready():
+	$SFX/DrumsSFX.play()
 	randomize()
 	$SpawnTimer.wait_time = 1
 	var existing_shape = rect.shape
@@ -61,7 +63,10 @@ func spawnHealth():
 	healthItemInstance.global_position = random_position
 
 func spawnPyres():
-	$SFX/PyreSFX.play()
+	sfxSwitch = !sfxSwitch
+	if sfxSwitch: $SFX/PyreSFX2.play()
+	elif !sfxSwitch: $SFX/PyreSFX.play()
+	
 	var min_distance = 30
 	var positions = []
 	
@@ -84,6 +89,7 @@ func spawnPyres():
 
 func secondPart():
 	get_node("Kufuu, Unbound Ibex/StateMachine").changeState("Enrage")
+	get_node("Kufuu, Unbound Ibex/StateMachine/Enrage").maxErupts = 4
 	spawn()
 	print("Part 2 entered")
 	$SpawnTimer.wait_time = 12
@@ -91,14 +97,20 @@ func secondPart():
 	$SpawnTimer.start()
 	get_node("Kufuu, Unbound Ibex").chargeSpeed += 40
 	get_node("Kufuu, Unbound Ibex").maxCharges += 1
+	get_node("Kufuu, Unbound Ibex/ChargeTimer").wait_time = 4
 
 func thirdPart():
+	get_node("Kufuu, Unbound Ibex/StateMachine").changeState("Enrage")
+	get_node("Kufuu, Unbound Ibex/StateMachine/Enrage").maxErupts = 6
 	print("part 3 entered")
 	maxEnemyCount = 10
 	$SpawnTimer.wait_time -= 3
-	get_node("Kufuu, Unbound Ibex").chargeSpeed += 40
+	get_node("Kufuu, Unbound Ibex").maxCharges += 1
+	get_node("Kufuu, Unbound Ibex").chargeSpeed += 60
 
 func onStartEncounter():
+	$Keeper.hide()
+	$SFX/DrumsSFX.stop()
 	if get_node("Kufuu, Unbound Ibex").has_method("startFight"):
 		get_node("Kufuu, Unbound Ibex").startFight()
 	$HealthTimer.wait_time = healthTime
@@ -122,3 +134,6 @@ func _on_health_timer_timeout():
 	$HealthTimer.start()
 	if countEntities("healthItem") < 3:
 		spawnHealth()
+
+func _on_drums_sfx_finished():
+	$SFX/DrumsSFX.play()

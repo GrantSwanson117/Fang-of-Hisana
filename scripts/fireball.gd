@@ -13,7 +13,7 @@ func _ready():
 func _on_timer_timeout(): queue_free()
 
 func _on_area_2d_area_entered(area):
-	if !area.get_parent().is_in_group("player"):
+	if !area.get_parent().is_in_group("player") and !area.get_parent().is_in_group("friendly"):
 		explode()
 		if area.owner is CharacterBody2D:
 			player.dealDamage(damage, area.owner)

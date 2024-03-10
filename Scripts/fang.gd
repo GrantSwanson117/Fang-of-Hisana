@@ -12,7 +12,7 @@ var input_vector = Vector2.ZERO
 @export var busy: bool = false
 @export var canAction: bool = true
 
-var canCast = true
+var canCast: bool = true
 var Fireball = preload("res://scenes/fireball.tscn")
 var Dust = preload("res://scenes/dust.tscn")
 
@@ -25,10 +25,12 @@ func _ready():
 	$UI/HealthBar.max_value = maxHealth
 	$UI/MagicBar.max_value = maxMagic
 	busy = false
+	tree["parameters/conditions/isCasting"] = false 
 	canAction = true
 	tree.active = true
 	speed = 150
 	fireballSpeed = 800
+	#set_physics_process(false)
 
 func _physics_process(delta):
 	$UI/HealthBar.value = health

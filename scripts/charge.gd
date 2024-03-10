@@ -12,6 +12,7 @@ func _ready():
 	connect("hitWall", chargeEnd)
 
 func enter():
+	owner.emit_signal("moveTrue")
 	owner.get_node("Hitbox/CollisionPolygon2D").disabled = false
 	owner.get_node("Hitbox/CollisionShape2D").disabled = true
 	owner.damage += owner.chargeBonus
@@ -43,6 +44,7 @@ func chargeEnd():
 		await(get_tree().create_timer(0.5)).timeout
 		charge()
 	if currentCharges >= bigGuy.maxCharges:
+		set_physics_process(false)
 		await(get_tree().create_timer(1)).timeout
 		get_parent().changeState("Follow")
 		owner.damage -= owner.chargeBonus

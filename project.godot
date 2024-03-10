@@ -19,6 +19,7 @@ config/icon="res://art/warrior.png"
 
 Level="*res://scripts/level_real.gd"
 DamageNumbers="*res://singletons/damageNumbers.gd"
+DialogueManager="*res://singletons/dialogueManager.gd"
 
 [display]
 

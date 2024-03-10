@@ -23,7 +23,7 @@ func ready():
 func _physics_process(delta):
 	#canMove = false
 	direction = player.position - global_position
-	if stateMachine.currentState != stateMachine.get_node("Charge"):
+	if stateMachine.currentState != stateMachine.get_node("Charge") and stateMachine.currentState != stateMachine.get_node("Enrage"):
 		$Hitbox.look_at(player.global_position)
 		if direction.x > 0: $Sprite2D.flip_h = true
 		else: $Sprite2D.flip_h = false
@@ -73,6 +73,7 @@ func startFight():
 func die():
 	dead = true
 	stateMachine.currentState.exit()
+	for sound in $SFX.get_children(): sound.stop()
 	$AnimationPlayer.play("Die")
 	set_physics_process(false)
 

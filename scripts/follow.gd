@@ -1,6 +1,5 @@
 extends State
 
-
 func _ready():
 	pass
 func _physics_process(_delta):

@@ -38,11 +38,10 @@ func _physics_process(delta):
 
 func die():
 	if !dead:
-		#stateMachine.removeStateMachine()
+		if stateMachine.currentState: stateMachine.currentState.exit()
 		$AnimationPlayer.play("Die")
 		get_node("SFX/DeathSFX").play()
 		velocity = Vector2.ZERO
-		#stateMachineActive = false
 		dead = true
 
 func _on_hitbox_area_entered(area):

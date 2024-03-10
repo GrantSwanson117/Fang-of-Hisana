@@ -4,17 +4,19 @@ var pyresInProgress: bool = false
 var elapsed_time: int = 0
 var dirToPoint: Vector2
 var directionFacing: int = 1
-@export var maxErupts = 4
-var curErupts: int = 0
+@export var maxErupts: int
+var curErupts: int = 1
 var timerRunning: bool = false
 
 func enter():
 	set_physics_process(true)
-	curErupts = 0
+	curErupts = 1
 
 func _physics_process(delta):
 	dirToPoint = (bigGuy.owner.get_node("EnragePoint").global_position - bigGuy.position)
 	if dirToPoint.length() > 1:
+		if dirToPoint.x > 0: bigGuy.find_child("Sprite2D").flip_h = true
+		else: bigGuy.find_child("Sprite2D").flip_h = false
 		bigGuy.emit_signal("moveTrue")
 		bigGuy.velocity = dirToPoint.normalized() * bigGuy.chargeSpeed
 	else:
@@ -25,10 +27,10 @@ func _physics_process(delta):
 			timerRunning = true
 
 func _on_eruption_timer_timeout():
-	curErupts+=1
 	if curErupts >= maxErupts:
 		var healthSpawn = false
-		get_parent().changeState("Follow")
+		get_parent().changeState("Charge")
 	else: 
 		owner.owner.emit_signal("spawnEruptions")
 		owner.get_node("EruptionTimer").start()
+	curErupts+=1
