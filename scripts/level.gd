@@ -137,3 +137,8 @@ func _on_health_timer_timeout():
 
 func _on_drums_sfx_finished():
 	$SFX/DrumsSFX.play()
+
+
+func _on_level_end_area_exited(area):
+	if area.owner.is_in_group("player"):
+		$UI.emit_signal("levelOutro")

@@ -28,10 +28,10 @@ func _physics_process(delta):
 		if direction.x > 0: $Sprite2D.flip_h = true
 		else: $Sprite2D.flip_h = false
 	
-	if direction.length() < meleeRange and stateMachine.currentState == get_node("StateMachine/Follow"):
+	if direction.length() < meleeRange and stateMachine.currentState == get_node("StateMachine/Follow") and stateMachine.currentState != get_node("StateMachine/Enrage"):
 		stateMachine.changeState("Attack")
 		$ChargeTimer.stop()
-	if direction.length() > meleeRange + 20 and stateMachine.currentState == get_node("StateMachine/Attack"):
+	if direction.length() > meleeRange + 20 and stateMachine.currentState == get_node("StateMachine/Attack") and stateMachine.currentState != get_node("StateMachine/Enrage"):
 		stateMachine.changeState("Follow")
 		if $ChargeTimer.is_stopped(): $ChargeTimer.start($ChargeTimer.wait_time)
 	if canMove: move_and_collide(velocity * delta)

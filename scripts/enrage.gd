@@ -11,6 +11,7 @@ var timerRunning: bool = false
 func enter():
 	set_physics_process(true)
 	curErupts = 1
+	owner.get_node("ChargeTimer").stop()
 
 func _physics_process(delta):
 	dirToPoint = (bigGuy.owner.get_node("EnragePoint").global_position - bigGuy.position)
@@ -29,8 +30,9 @@ func _physics_process(delta):
 func _on_eruption_timer_timeout():
 	if curErupts >= maxErupts:
 		var healthSpawn = false
+		owner.get_node("EruptionTimer").stop()
 		get_parent().changeState("Charge")
 	else: 
 		owner.owner.emit_signal("spawnEruptions")
 		owner.get_node("EruptionTimer").start()
-	curErupts+=1
+		curErupts+=1

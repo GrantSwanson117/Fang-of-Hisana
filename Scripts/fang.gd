@@ -19,6 +19,7 @@ var Dust = preload("res://scenes/dust.tscn")
 var attackSwitch = false
 
 func _ready():
+	$UI.hide()
 	health = maxHealth
 	magic = maxMagic
 	$Hurtbox/CollisionShape2D.disabled = false
@@ -29,8 +30,8 @@ func _ready():
 	canAction = true
 	tree.active = true
 	speed = 150
-	fireballSpeed = 800
-	#set_physics_process(false)
+	fireballSpeed = 500
+	set_physics_process(false)
 
 func _physics_process(delta):
 	$UI/HealthBar.value = health
