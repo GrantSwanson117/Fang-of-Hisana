@@ -37,6 +37,10 @@ func _physics_process(delta):
 			spawn = false
 
 func die():
+	if spawn: 
+		await(get_tree().create_timer(1))
+		spawn = false
+		die()
 	if !dead:
 		if stateMachine.currentState: stateMachine.currentState.exit()
 		$AnimationPlayer.play("Die")

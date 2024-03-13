@@ -401,9 +401,11 @@ position = Vector2(0, -31)
 [node name="HitSFX" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("10_8uuft")
 volume_db = -8.0
+bus = &"sfx"
 
 [node name="DeathSFX" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("11_ftenr")
 volume_db = -10.0
+bus = &"sfx"
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

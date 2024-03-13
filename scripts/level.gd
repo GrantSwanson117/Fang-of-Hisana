@@ -97,7 +97,6 @@ func secondPart():
 	$SpawnTimer.start()
 	get_node("Kufuu, Unbound Ibex").chargeSpeed += 40
 	get_node("Kufuu, Unbound Ibex").maxCharges += 1
-	get_node("Kufuu, Unbound Ibex/ChargeTimer").wait_time = 4
 
 func thirdPart():
 	get_node("Kufuu, Unbound Ibex/StateMachine").changeState("Enrage")

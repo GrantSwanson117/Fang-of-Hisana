@@ -13,7 +13,7 @@ var punctuationTime = 0.2
 signal finishedDisplaying()
 
 func _ready():
-	pass
+	z_index = 10
 
 func displayText(textToDisplay: String):
 	text = textToDisplay

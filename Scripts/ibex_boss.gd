@@ -37,7 +37,7 @@ func _physics_process(delta):
 	if canMove: move_and_collide(velocity * delta)
 	if stateMachine.currentState == stateMachine.get_node("Follow"): velocity = direction.normalized() * baseSpeed
 	
-	if health < 2 * (maxHealth / 3) and !partTwoEmitted: 
+	if health < 3 * (maxHealth / 4) and !partTwoEmitted: 
 		owner.emit_signal("partTwo")
 		partTwoEmitted = true
 	if health < (maxHealth / 3) and !partThreeEmitted: 

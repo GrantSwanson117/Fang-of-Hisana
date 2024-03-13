@@ -1,14 +1,16 @@
 HSeparator
-Label
-HSlider
-Button
 VBoxContainer
+Label
+Marker2D
+VSeparator
+Button
+HBoxContainer
 MarginContainer
 ColorRect
+HSlider
 CanvasLayer
 Control
 Sprite2D
-Marker2D
 Timer
 NinePatchRect
 CollisionShape2D
@@ -28,5 +30,3 @@ Node
 AnimationTree
 Line2D
 RigidBody2D
-WorldEnvironment
-MultiMeshInstance2D

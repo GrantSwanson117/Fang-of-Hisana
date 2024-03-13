@@ -30,8 +30,9 @@ func _physics_process(delta):
 func _on_eruption_timer_timeout():
 	if curErupts >= maxErupts:
 		var healthSpawn = false
+		timerRunning = false
 		owner.get_node("EruptionTimer").stop()
-		get_parent().changeState("Charge")
+		get_parent().changeState("Follow")
 	else: 
 		owner.owner.emit_signal("spawnEruptions")
 		owner.get_node("EruptionTimer").start()

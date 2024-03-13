@@ -127,7 +127,7 @@ chargeSpeed = 300
 chargeBonus = 30
 minDamage = 1
 maxDamage = 1
-maxHealth = 1000
+maxHealth = 2500
 baseSpeed = 80
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -224,6 +224,7 @@ position = Vector2(14.2669, -0.945068)
 polygon = PackedVector2Array(56.9999, 1, 0, 46, 0, -46)
 
 [node name="debug" type="Label" parent="."]
+visible = false
 anchors_preset = -1
 anchor_top = -0.0123457
 anchor_right = 0.0199653
@@ -272,13 +273,16 @@ position = Vector2(0, -51)
 
 [node name="SlamSFX" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("13_pkfb0")
+bus = &"sfx"
 
 [node name="HitSFX" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("14_rtmbp")
 volume_db = -6.0
+bus = &"sfx"
 
 [node name="GallopSFX" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("15_cmsj6")
+bus = &"sfx"
 
 [node name="EruptionTimer" type="Timer" parent="."]
 wait_time = 1.5

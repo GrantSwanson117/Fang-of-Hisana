@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dig2t3tg5mcku"]
+[gd_scene load_steps=5 format=3 uid="uid://dig2t3tg5mcku"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_pc2lt"]
 [ext_resource type="FontFile" uid="uid://btp5ny0vcgf34" path="res://fonts/alagard.ttf" id="1_y43xp"]
+[ext_resource type="Script" path="res://scripts/volumeControl.gd" id="3_skr20"]
+[ext_resource type="FontFile" uid="uid://v2dunwyf5lmj" path="res://fonts/VeniceClassic.ttf" id="4_xbp2m"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_pc2lt")
@@ -58,154 +60,6 @@ size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 70
 text = "NOMAD'S FANG"
-horizontal_alignment = 1
-
-[node name="PauseOptionsMenu" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="PauseOptionsMenu"]
-layout_mode = 2
-offset_left = -49.0
-offset_right = 1201.0
-offset_bottom = 688.0
-color = Color(0, 0, 0, 0.317647)
-
-[node name="MarginContainer" type="MarginContainer" parent="PauseOptionsMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 40
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseOptionsMenu/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="PauseOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 40
-text = "SFX VOLUME
-"
-
-[node name="VolumeSlider" type="HSlider" parent="PauseOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="PauseOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="Label2" type="Label" parent="PauseOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 40
-text = "MUSIC VOLUME
-"
-
-[node name="VolumeSlider2" type="HSlider" parent="PauseOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HSeparator2" type="HSeparator" parent="PauseOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="Back" type="Button" parent="PauseOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 40
-text = "BACK"
-flat = true
-
-[node name="Label" type="Label" parent="PauseOptionsMenu/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 50
-text = "OPTIONS"
-horizontal_alignment = 1
-
-[node name="StartOptionsMenu" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="StartOptionsMenu"]
-layout_mode = 2
-offset_left = -49.0
-offset_right = 1201.0
-offset_bottom = 688.0
-color = Color(0, 0, 0, 0.317647)
-
-[node name="MarginContainer" type="MarginContainer" parent="StartOptionsMenu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_top = 40
-
-[node name="VBoxContainer" type="VBoxContainer" parent="StartOptionsMenu/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Label" type="Label" parent="StartOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 40
-text = "SFX VOLUME
-"
-
-[node name="VolumeSlider" type="HSlider" parent="StartOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="StartOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="Label2" type="Label" parent="StartOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 40
-text = "MUSIC VOLUME
-"
-
-[node name="VolumeSlider2" type="HSlider" parent="StartOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HSeparator2" type="HSeparator" parent="StartOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="Back" type="Button" parent="StartOptionsMenu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 40
-text = "BACK"
-flat = true
-
-[node name="Label" type="Label" parent="StartOptionsMenu/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 50
-text = "OPTIONS"
 horizontal_alignment = 1
 
 [node name="PauseMenu" type="Control" parent="."]
@@ -275,7 +129,96 @@ theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 60
 text = "PAUSED"
 
+[node name="OptionsMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="OptionsMenu"]
+layout_mode = 2
+offset_left = -49.0
+offset_right = 1201.0
+offset_bottom = 688.0
+color = Color(0, 0, 0, 0.317647)
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 140
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 140
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="OptionsMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 40
+text = "SFX VOLUME
+"
+
+[node name="SFXVolume" type="HSlider" parent="OptionsMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+step = 0.001
+value = 80.0
+script = ExtResource("3_skr20")
+busName = "sfx"
+
+[node name="HSeparator" type="HSeparator" parent="OptionsMenu/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label2" type="Label" parent="OptionsMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 40
+text = "MUSIC VOLUME
+"
+
+[node name="MusicVolume" type="HSlider" parent="OptionsMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+step = 0.001
+value = 80.0
+script = ExtResource("3_skr20")
+busName = "music"
+
+[node name="HSeparator2" type="HSeparator" parent="OptionsMenu/MarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Back" type="Button" parent="OptionsMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 40
+text = "BACK"
+flat = true
+
+[node name="Label" type="Label" parent="OptionsMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 50
+text = "OPTIONS"
+horizontal_alignment = 1
+
 [node name="DeathMenu" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -284,6 +227,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="OutroMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -291,11 +236,98 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="OutroMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="OutroMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OutroMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="PlayAgain" type="Button" parent="OutroMenu/MarginContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 40
+text = "Play again"
+
+[node name="VSeparator" type="VSeparator" parent="OutroMenu/MarginContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 300
+
+[node name="Quit" type="Button" parent="OutroMenu/MarginContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OutroMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="OutroLabel" type="Label" parent="OutroMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_xbp2m")
+theme_override_font_sizes/font_size = 40
+text = "And thus, the nomad warrior felled the spirit beast that brought plague and famine upon  his home. He emerged victorious from the chamber, and began his journey home. As he returned, he was hailed as a hero, and his people were finally able to rebuild."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="OutroMenu/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="CreditsLabel" type="Label" parent="OutroMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 40
+text = "A game by Grant Swanson
+Additional art assets by Jeronimo Hofer"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="OutroMenu/MarginContainer/VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 70
+
+[node name="ThanksLabel" type="Label" parent="OutroMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 40
+text = "THANKS FOR PLAYING"
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="PauseOptionsMenu/MarginContainer/VBoxContainer/Back" to="." method="_ready"]
-[connection signal="pressed" from="StartOptionsMenu/MarginContainer/VBoxContainer/Back" to="." method="_ready"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="OptionsMenu/MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="OutroMenu/MarginContainer/HBoxContainer/PlayAgain" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="OutroMenu/MarginContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
