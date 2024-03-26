@@ -1,8 +1,7 @@
 extends CanvasLayer
 
 signal levelOutro
-
-#
+signal playerDeath
 
 const creditsLines: Array[String] = []
 
@@ -29,6 +28,7 @@ func _ready():
 	curMenu = mainMenu
 	changeMenu(mainMenu)
 	get_tree().paused = false
+	connect("playerDeath", onPlayerDeath)
 	connect("levelOutro", onLevelOutro)
 	outroLabel.modulate.a = 0
 	creditsLabel.modulate.a = 0
@@ -101,3 +101,6 @@ func _on_back_pressed():
 
 func _on_restart_pressed():
 	get_tree().reload_current_scene()
+
+func onPlayerDeath():
+	changeMenu(deathMenu)

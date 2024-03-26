@@ -1,6 +1,8 @@
+Timer
+Label
+AudioStreamPlayer2D
 HSeparator
 VBoxContainer
-Label
 Marker2D
 VSeparator
 Button
@@ -11,11 +13,9 @@ HSlider
 CanvasLayer
 Control
 Sprite2D
-Timer
 NinePatchRect
 CollisionShape2D
 Area2D
-AudioStreamPlayer2D
 AnimatedSprite2D
 CharacterBody2D
 AnimationPlayer

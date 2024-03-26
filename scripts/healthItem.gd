@@ -1,6 +1,6 @@
 extends Area2D
 
-var healthAmount: int = 20
+var healthAmount: int = 40
 var time = 0
 
 func _ready(): 
@@ -13,7 +13,7 @@ func _physics_process(delta):
 	else: $AnimatedSprite2D.self_modulate.a = 1
 
 func _on_area_entered(area):
-	var randHealth = randi_range(healthAmount - 7, healthAmount + 7)
+	var randHealth = randi_range(healthAmount - 10, healthAmount + 10)
 	if area.owner.is_in_group("player"):
 		area.owner.heal(randHealth)
 		queue_free()

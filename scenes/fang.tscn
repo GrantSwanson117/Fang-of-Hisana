@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://der1r8332tu38"]
+[gd_scene load_steps=56 format=3 uid="uid://der1r8332tu38"]
 
 [ext_resource type="Script" path="res://scripts/fang.gd" id="1_ukpw8"]
 [ext_resource type="Texture2D" uid="uid://c50uuxgh22pnb" path="res://art/fang.png" id="2_feavh"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://bbj3ltxle26jf" path="res://sfx/healSFX.mp3" id="7_tmb34"]
 [ext_resource type="AudioStream" uid="uid://ba5soh2me8hfp" path="res://sfx/fireball.wav" id="8_mg8vw"]
 [ext_resource type="AudioStream" uid="uid://deybrw6jydf6f" path="res://sfx/dodge.wav" id="9_yc3xp"]
+[ext_resource type="AudioStream" uid="uid://byshbwcwxteai" path="res://sfx/death.wav" id="10_qq15a"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kxv0q"]
 animation = &"Attack 1"
@@ -148,7 +149,7 @@ states/Start/position = Vector2(179, 89)
 states/Transition/node = SubResource("AnimationNodeAnimation_siqnc")
 states/Transition/position = Vector2(683.803, -71.2482)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_1qu23"), "Run", "Transition", SubResource("AnimationNodeStateMachineTransition_lgfjl"), "Transition", "Idle", SubResource("AnimationNodeStateMachineTransition_e67vk"), "Dodge", "Idle", SubResource("AnimationNodeStateMachineTransition_tva6x"), "Dodge", "Run", SubResource("AnimationNodeStateMachineTransition_s213k"), "Run", "Dodge", SubResource("AnimationNodeStateMachineTransition_5ykr8"), "Transition", "Run", SubResource("AnimationNodeStateMachineTransition_04kr3"), "Attack 1", "Attack 2", SubResource("AnimationNodeStateMachineTransition_838e2"), "Attack 2", "Attack 1", SubResource("AnimationNodeStateMachineTransition_odhe5"), "Run", "Attack 2", SubResource("AnimationNodeStateMachineTransition_a85f3"), "Run", "Attack 1", SubResource("AnimationNodeStateMachineTransition_lm1h8"), "Attack 1", "Idle", SubResource("AnimationNodeStateMachineTransition_3h6pr"), "Attack 2", "Run", SubResource("AnimationNodeStateMachineTransition_8a11x"), "Attack 2", "Idle", SubResource("AnimationNodeStateMachineTransition_8pw71"), "Attack 1", "Run", SubResource("AnimationNodeStateMachineTransition_rg1yn"), "Magic", "Idle", SubResource("AnimationNodeStateMachineTransition_c4q3r"), "Magic", "Run", SubResource("AnimationNodeStateMachineTransition_hmwb0"), "Run", "Magic", SubResource("AnimationNodeStateMachineTransition_y0okn"), "Idle", "Attack 2", SubResource("AnimationNodeStateMachineTransition_fys2x"), "Idle", "Attack 1", SubResource("AnimationNodeStateMachineTransition_ap7nq"), "Idle", "Dodge", SubResource("AnimationNodeStateMachineTransition_3xnsc"), "Idle", "Transition", SubResource("AnimationNodeStateMachineTransition_x440n"), "Idle", "Magic", SubResource("AnimationNodeStateMachineTransition_kwh86")]
-graph_offset = Vector2(-190.197, -221.248)
+graph_offset = Vector2(-152.197, -243.248)
 
 [sub_resource type="Animation" id="Animation_6r4bq"]
 resource_name = "Attack 1"
@@ -526,13 +527,26 @@ self_modulate = Color(0, 0, 0, 1)
 position = Vector2(0, 1)
 collision_layer = 16
 script = ExtResource("1_ukpw8")
-fireballSpeed = 1000
-maxMagic = 10000
-busy = true
+fireballSpeed = 700
+maxMagic = 100
 minDamage = 20
 maxDamage = 35
-maxHealth = 100000
+maxHealth = 250
 baseSpeed = 150
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+process_mode = 3
+texture_filter = 1
+position = Vector2(4, 0)
+texture = ExtResource("2_feavh")
+hframes = 5
+vframes = 5
+frame = 3
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.3)
+position = Vector2(0, 28)
+texture = ExtResource("2_k7utr")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -554,19 +568,6 @@ offset_bottom = 42.0
 size_flags_horizontal = 4
 value = 100.0
 show_percentage = false
-
-[node name="Shadow" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.3)
-position = Vector2(0, 28)
-texture = ExtResource("2_k7utr")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(4, 0)
-texture = ExtResource("2_feavh")
-hframes = 5
-vframes = 5
-frame = 3
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(3, 0)
@@ -613,7 +614,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_ip50g")
-disabled = true
 debug_color = Color(0, 0.643137, 0.270588, 0.419608)
 
 [node name="DustPosition" type="Node2D" parent="."]
@@ -631,6 +631,7 @@ wait_time = 0.8
 position = Vector2(0, -22)
 
 [node name="SFX" type="Node2D" parent="."]
+process_mode = 3
 
 [node name="Attack1SFX" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("5_321dn")
@@ -643,13 +644,14 @@ volume_db = -7.059
 bus = &"sfx"
 
 [node name="HitSFX" type="AudioStreamPlayer2D" parent="SFX"]
+process_mode = 3
 stream = ExtResource("6_yu18u")
 volume_db = -8.0
 bus = &"sfx"
 
 [node name="PickupSFX" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("7_tmb34")
-volume_db = -4.0
+volume_db = -9.0
 bus = &"sfx"
 
 [node name="FireballSFX" type="AudioStreamPlayer2D" parent="SFX"]
@@ -671,6 +673,10 @@ bus = &"sfx"
 stream = ExtResource("9_yc3xp")
 volume_db = 4.0
 bus = &"sfx"
+
+[node name="DeathSFX" type="AudioStreamPlayer2D" parent="SFX"]
+process_mode = 3
+stream = ExtResource("10_qq15a")
 
 [connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
 [connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]

@@ -19,12 +19,13 @@ var Dust = preload("res://scenes/dust.tscn")
 var attackSwitch = false
 
 func _ready():
+	$CastTimer.stop()
 	$UI.hide()
 	health = maxHealth
 	magic = maxMagic
 	$Hurtbox/CollisionShape2D.disabled = false
-	$UI/HealthBar.max_value = maxHealth
-	$UI/MagicBar.max_value = maxMagic
+	$UI/HealthBar.max_value = health
+	$UI/MagicBar.max_value = magic
 	busy = false
 	tree["parameters/conditions/isCasting"] = false 
 	canAction = true
@@ -36,7 +37,7 @@ func _ready():
 func _physics_process(delta):
 	$UI/HealthBar.value = health
 	$UI/MagicBar.value = magic
-	magic += 0.015
+	if magic < maxMagic: magic += 0.015
 	if !busy: move(delta)
 	updateAnimParameters()
 	set_velocity(motion)
@@ -113,10 +114,14 @@ func updateAnimParameters():
 		tree["parameters/conditions/isMoving"] = true
 
 func die():
+	get_parent().get_node("UI").emit_signal("playerDeath")
+	visible = false
 	tree.active = false
 	busy = true
-	animator.play("Die")
+	$SFX/DeathSFX.play()
+	$SFX/HitSFX.play()
 	motion = Vector2.ZERO
+	get_tree().paused = true
 	
 func _on_hitbox_area_entered(area):
 	if $Collider.owner != area.owner:

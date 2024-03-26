@@ -6,11 +6,11 @@ var inRange: bool = false
 
 const lines: Array[String] = [
 	"Wait a moment, warrior.",
-	"I understand what waits inside is what cursed your people so many moons ago.",
-	"But I have seen too many souls venture inside, only to die and awake as undead in its service.",
+	"I understand that which waits inside is what cursed your people so many moons ago.",
+	"But I have seen too many souls venture into this chamber, only to die and awake as undead in its service.",
 	"If you value your life, turn back.",
 	"But if you were to lay the spirit to rest, I understand you would do your people a great honor.",
-	"So if you must press on, I bid you good fortune. I would like not see the spirit's guardians grow any more numerous.",
+	"So if you must press on, I bid you good fortune. I would like not to see the spirit's guardians grow any more numerous.",
 	"Attack: LMB\nFireball: RMB\nDodge: SPACE"
 ]
 func _ready():

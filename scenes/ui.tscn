@@ -1,9 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://dig2t3tg5mcku"]
+[gd_scene load_steps=13 format=3 uid="uid://dig2t3tg5mcku"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_pc2lt"]
 [ext_resource type="FontFile" uid="uid://btp5ny0vcgf34" path="res://fonts/alagard.ttf" id="1_y43xp"]
 [ext_resource type="Script" path="res://scripts/volumeControl.gd" id="3_skr20"]
 [ext_resource type="FontFile" uid="uid://v2dunwyf5lmj" path="res://fonts/VeniceClassic.ttf" id="4_xbp2m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q6jkk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lutw3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qmhcp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_264mk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_57707"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ky87"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lrpus"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_adinm"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_pc2lt")
@@ -34,29 +50,44 @@ theme_override_constants/separation = 30
 
 [node name="Play" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_q6jkk")
 text = "PLAY"
 flat = true
 
 [node name="Options" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_q6jkk")
 text = "OPTIONS"
 flat = true
 
 [node name="Quit" type="Button" parent="MainMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_q6jkk")
 text = "QUIT"
 flat = true
 
 [node name="Label" type="Label" parent="MainMenu/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 70
 text = "NOMAD'S FANG"
@@ -98,8 +129,12 @@ theme_override_constants/separation = 30
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lutw3")
 text = "RESUME"
 flat = true
 
@@ -107,8 +142,12 @@ flat = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qmhcp")
 text = "OPTIONS"
 flat = true
 
@@ -116,8 +155,12 @@ flat = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_264mk")
 text = "QUIT"
 flat = true
 
@@ -125,6 +168,9 @@ flat = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 60
 text = "PAUSED"
@@ -164,6 +210,9 @@ size_flags_vertical = 4
 [node name="Label" type="Label" parent="OptionsMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
 text = "SFX VOLUME
@@ -185,6 +234,9 @@ theme_override_constants/separation = 40
 [node name="Label2" type="Label" parent="OptionsMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
 text = "MUSIC VOLUME
@@ -204,14 +256,21 @@ theme_override_constants/separation = 40
 
 [node name="Back" type="Button" parent="OptionsMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_57707")
 text = "BACK"
 flat = true
 
 [node name="Label" type="Label" parent="OptionsMenu/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 50
 text = "OPTIONS"
@@ -226,9 +285,72 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="DeathMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0.12549)
+
+[node name="MarginContainer" type="MarginContainer" parent="DeathMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeathMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeathMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 90
+text = "YOU DIED"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeathMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="PlayAgain" type="Button" parent="DeathMenu/MarginContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8ky87")
+text = "Play again"
+
+[node name="VSeparator" type="VSeparator" parent="DeathMenu/MarginContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 300
+
+[node name="Quit" type="Button" parent="DeathMenu/MarginContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8ky87")
+text = "Quit"
+
 [node name="OutroMenu" type="Control" parent="."]
 process_mode = 3
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -257,36 +379,14 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="HBoxContainer" type="HBoxContainer" parent="OutroMenu/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-
-[node name="PlayAgain" type="Button" parent="OutroMenu/MarginContainer/HBoxContainer"]
-process_mode = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 40
-text = "Play again"
-
-[node name="VSeparator" type="VSeparator" parent="OutroMenu/MarginContainer/HBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 300
-
-[node name="Quit" type="Button" parent="OutroMenu/MarginContainer/HBoxContainer"]
-process_mode = 3
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_y43xp")
-theme_override_font_sizes/font_size = 40
-text = "Quit"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="OutroMenu/MarginContainer"]
 layout_mode = 2
 
 [node name="OutroLabel" type="Label" parent="OutroMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_xbp2m")
 theme_override_font_sizes/font_size = 40
 text = "And thus, the nomad warrior felled the spirit beast that brought plague and famine upon  his home. He emerged victorious from the chamber, and began his journey home. As he returned, he was hailed as a hero, and his people were finally able to rebuild."
@@ -301,9 +401,12 @@ theme_override_constants/separation = 50
 [node name="CreditsLabel" type="Label" parent="OutroMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
 text = "A game by Grant Swanson
+
 Additional art assets by Jeronimo Hofer"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -311,16 +414,50 @@ autowrap_mode = 2
 [node name="HSeparator2" type="HSeparator" parent="OutroMenu/MarginContainer/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_constants/separation = 70
+theme_override_constants/separation = 50
 
 [node name="ThanksLabel" type="Label" parent="OutroMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_y43xp")
 theme_override_font_sizes/font_size = 40
 text = "THANKS FOR PLAYING"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OutroMenu/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="PlayAgain" type="Button" parent="OutroMenu/MarginContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_lrpus")
+text = "Play again"
+
+[node name="VSeparator" type="VSeparator" parent="OutroMenu/MarginContainer/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 300
+
+[node name="Quit" type="Button" parent="OutroMenu/MarginContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("1_y43xp")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_adinm")
+text = "Quit"
 
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
@@ -329,5 +466,7 @@ autowrap_mode = 2
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="OptionsMenu/MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="DeathMenu/MarginContainer/HBoxContainer/PlayAgain" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="DeathMenu/MarginContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="OutroMenu/MarginContainer/HBoxContainer/PlayAgain" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="OutroMenu/MarginContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]

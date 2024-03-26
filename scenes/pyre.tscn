@@ -51,23 +51,23 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1ok4v"]
-radius = 7.0
-height = 26.0
+radius = 3.0
+height = 20.0
 
 [node name="Pyre" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 3
 collision_mask = 4
 script = ExtResource("1_sy3x2")
-minDamage = 35
-maxDamage = 50
+minDamage = 20
+maxDamage = 35
 maxHealth = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -63)
 texture = ExtResource("2_jwjpr")
 hframes = 7
-frame = 5
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Erupt"

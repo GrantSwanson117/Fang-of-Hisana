@@ -11,4 +11,6 @@ res://scenes/keeper.tscn
 res://scenes/textBox.tscn
 res://scenes/ui.tscn
 res://scenes/fireball.tscn
-res://scripts/enemy.gd
+res://scenes/healthItem.tscn
+res://scenes/pyre.tscn
+res://scripts/enrage.gd

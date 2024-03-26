@@ -29,6 +29,5 @@ func explode():
 	get_tree().current_scene.add_child(explosionInstance)
 	linear_velocity = Vector2.ZERO
 
-
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("world"): explode()

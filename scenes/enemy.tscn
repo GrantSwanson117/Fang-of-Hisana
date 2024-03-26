@@ -12,7 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bovjql537pewj" path="res://sfx/Hit.wav" id="10_8uuft"]
 [ext_resource type="AudioStream" uid="uid://d333laa616y73" path="res://sfx/enemyDeath.wav" id="11_ftenr"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tyv4d"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ts35w"]
 shader = ExtResource("2_xfbkd")
 shader_parameter/dissolveFloat = 1.0
 
@@ -320,7 +320,7 @@ maxDamage = 20
 baseSpeed = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_tyv4d")
+material = SubResource("ShaderMaterial_ts35w")
 texture = ExtResource("1_wltis")
 hframes = 13
 vframes = 5
@@ -354,6 +354,7 @@ disabled = true
 debug_color = Color(0.996078, 0, 0.184314, 0.32549)
 
 [node name="debug" type="Label" parent="."]
+visible = false
 anchors_preset = -1
 anchor_top = -0.0123457
 anchor_right = 0.0199653

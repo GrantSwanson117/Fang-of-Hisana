@@ -8,10 +8,16 @@ var directionFacing: int = 1
 var curErupts: int = 1
 var timerRunning: bool = false
 
+@onready var camera = owner.owner.get_node("Fang/Camera2D")
+
 func enter():
 	set_physics_process(true)
 	curErupts = 1
 	owner.get_node("ChargeTimer").stop()
+	print("ENTER ENRAGE")
+func exit():
+	set_physics_process(false)
+	print("EXIT ENRAGE")
 
 func _physics_process(delta):
 	dirToPoint = (bigGuy.owner.get_node("EnragePoint").global_position - bigGuy.position)
@@ -21,6 +27,7 @@ func _physics_process(delta):
 		bigGuy.emit_signal("moveTrue")
 		bigGuy.velocity = dirToPoint.normalized() * bigGuy.chargeSpeed
 	else:
+		owner.get_node("AnimationPlayer").play("EnrageStomp")
 		bigGuy.emit_signal("moveFalse")
 		if timerRunning == false: 
 			owner.get_node("EruptionTimer").start()
@@ -28,6 +35,7 @@ func _physics_process(delta):
 			timerRunning = true
 
 func _on_eruption_timer_timeout():
+	print(curErupts, " out of ", maxErupts, " eruptions ")
 	if curErupts >= maxErupts:
 		var healthSpawn = false
 		timerRunning = false
@@ -37,3 +45,9 @@ func _on_eruption_timer_timeout():
 		owner.owner.emit_signal("spawnEruptions")
 		owner.get_node("EruptionTimer").start()
 		curErupts+=1
+
+func stompSwitch():
+	owner.get_node("Sprite2D").flip_h = !owner.get_node("Sprite2D").flip_h
+	owner.get_node("AnimationPlayer").play("EnrageStomp")
+	camera.shake(0.2, 2)
+	owner.get_node("SFX/SlamSFX").play()

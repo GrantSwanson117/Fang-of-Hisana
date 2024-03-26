@@ -1,17 +1,19 @@
 extends State
 
+@onready var camera = owner.owner.get_node("Fang/Camera2D")
+
 signal hitWall
 
 var chargeDirection
 var currentCharges: int
 var chargeCollide: bool = false
-@onready var camera = owner.owner.get_node("Fang").find_child("Camera2D")
 @onready var durationTimer = owner.get_node("ChargeDurationTimer")
 
 func _ready():
 	connect("hitWall", chargeEnd)
 
 func enter():
+	owner.get_node("AnimationPlayer").play("Charge")
 	owner.emit_signal("moveTrue")
 	owner.get_node("Hitbox/CollisionPolygon2D").disabled = false
 	owner.get_node("Hitbox/CollisionShape2D").disabled = true

@@ -14,6 +14,7 @@ signal spawnEruptions
 @export var healthTime : int
 var sfxSwitch = false
 @onready var rect = $HealthField/CollisionShape2D
+var sfxFadeOut: bool = false
 var rectangleShape = RectangleShape2D.new()
 var size : Vector2
 var totalEnemies: int = 0
@@ -31,6 +32,12 @@ func _ready():
 	connect("startEncounter", onStartEncounter)
 	connect("endEncounter", onEndEncounter)
 	connect("spawnEruptions", spawnPyres)
+
+func _physics_process(delta):
+	if sfxFadeOut:
+		var current_volume_db = $SFX/BossMusic.get_volume_db()
+		var new_volume_db = lerp(current_volume_db, -100.0, 0.1 * delta)
+		$SFX/BossMusic.set_volume_db(new_volume_db)
 
 func spawn():
 	$SFX/EnemySpawnSFX.play()
@@ -110,12 +117,14 @@ func thirdPart():
 func onStartEncounter():
 	$Keeper.hide()
 	$SFX/DrumsSFX.stop()
+	$SFX/BossMusic.play()
 	if get_node("Kufuu, Unbound Ibex").has_method("startFight"):
 		get_node("Kufuu, Unbound Ibex").startFight()
 	$HealthTimer.wait_time = healthTime
 	$HealthTimer.start()
 	
 func onEndEncounter():
+	sfxFadeOut = true
 	$HealthTimer.stop()
 	$SpawnTimer.stop()
 	for child in get_children():
@@ -129,7 +138,7 @@ func onEndEncounter():
 			child.die()
 
 func _on_health_timer_timeout():
-	$HealthTimer.wait_time = randf_range(healthTime - 7, healthTime + 7)
+	$HealthTimer.wait_time = randf_range(healthTime - 6, healthTime + 6)
 	$HealthTimer.start()
 	if countEntities("healthItem") < 3:
 		spawnHealth()
